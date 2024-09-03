@@ -1,19 +1,23 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../database";
+import { Ticket } from "@database/entities/Ticket";
 
 export class TicketController {
     private ticketRepository = AppDataSource.getRepository(Ticket);
 
-
     async getAll(req: Request, res: Response) {
-        const tickets = await this.ticketRepository.find({ relations: ["section"] });
+        const tickets = await this.ticketRepository.find({
+            relations: ["section"],
+        });
         return res.json(tickets);
     }
 
-
     async getId(req: Request, res: Response) {
         const { id } = req.params;
-        const ticket = await this.ticketRepository.findOne({ where: { id: parseInt(id) }, relations: ["section"] });
+        const ticket = await this.ticketRepository.findOne({
+            where: { id: parseInt(id) },
+            relations: ["section"],
+        });
         if (ticket) {
             return res.json(ticket);
         }
@@ -26,10 +30,11 @@ export class TicketController {
         return res.status(201).json(newTicket);
     }
 
-
     async put(req: Request, res: Response) {
         const { id } = req.params;
-        const ticket = await this.ticketRepository.findOneBy({ id: parseInt(id) });
+        const ticket = await this.ticketRepository.findOneBy({
+            id: parseInt(id),
+        });
 
         if (ticket) {
             this.ticketRepository.merge(ticket, req.body);
@@ -42,6 +47,8 @@ export class TicketController {
     async delete(req: Request, res: Response) {
         const { id } = req.params;
         const result = await this.ticketRepository.delete(id);
-        return result.affected ? res.status(204).send() : res.status(404).json({ message: "Ticket not found" });
+        return result.affected
+            ? res.status(204).send()
+            : res.status(404).json({ message: "Ticket not found" });
     }
 }
