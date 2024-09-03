@@ -4,9 +4,11 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
+    OneToOne,
+    JoinColumn,
     ManyToOne,
 } from "typeorm";
-import Ticket from "./Ticket";
+import { Movie } from "./Movie";
 
 @Entity("sessions")
 export class Session {
@@ -32,8 +34,8 @@ export class Session {
     updated_at: Date;
     //migation: time stamp with time zone
 
-    @ManyToOne(() => Ticket, ticket => ticket.session)
-    tickets: Ticket[];
+    @ManyToOne(() => Movie, (movie) => movie.session)
+    movie: Movie;
 }
 
 export default Session;

@@ -1,8 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, Unique} from "typeorm";
-import { Session } from "./Session";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-@Entity("tickets")
-@Unique(["chair", "sessionId"])
+@Entity("Tickets")
 export class Ticket {
     @PrimaryGeneratedColumn()
     id: string;
@@ -12,13 +10,7 @@ export class Ticket {
 
     @Column()
     chair: string;
-    
-    @Column()
-    sessionId: string; 
-
-    @OneToMany(() => Session, session => session.tickets)
-    @JoinColumn({ name: "sessionId" })
-    session: Session;
+  
 }
 
 export default Ticket;
