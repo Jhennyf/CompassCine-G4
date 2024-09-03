@@ -1,6 +1,8 @@
 // Importações Necessárias
+import 'reflect-metadata';
 import express from 'express';
 import 'dotenv/config';
+import '../src/database/index'
 
 // Models
 
