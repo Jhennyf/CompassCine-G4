@@ -4,7 +4,9 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
+    OneToMany,
 } from "typeorm";
+import { Session } from "./Session";
 
 @Entity("movies")
 export class Movie {
@@ -35,6 +37,9 @@ export class Movie {
     @UpdateDateColumn()
     updated_at: Date;
     //migation: time stamp with time zone
+
+    @OneToMany(() => Session, (session) => session.movie)
+    session: Session[];
 }
 
 export default Movie;
