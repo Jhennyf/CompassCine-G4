@@ -1,0 +1,20 @@
+{
+  "name": "compasscine-g4",
+  "version": "1.0.0",
+  "description": "# 2º Desafio | NODE.JS + **AWS_JUL24**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Erek Couto, Felipe Rezende, Hugo Symon e Jhennyf Lima",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "eslint": "^9.9.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3"
+  }
+}
