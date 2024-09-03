@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Session } from "./Session";
 
 @Entity("Tickets")
 export class Ticket {
@@ -10,7 +11,9 @@ export class Ticket {
 
     @Column()
     chair: string;
-  
+
+    @ManyToOne(() => Session, (session) => session.ticket)
+    session: Session;
 }
 
 export default Ticket;

@@ -7,8 +7,10 @@ import {
     OneToOne,
     JoinColumn,
     ManyToOne,
+    OneToMany,
 } from "typeorm";
 import { Movie } from "./Movie";
+import { Ticket } from "./Ticket";
 
 @Entity("sessions")
 export class Session {
@@ -36,6 +38,9 @@ export class Session {
 
     @ManyToOne(() => Movie, (movie) => movie.session)
     movie: Movie;
+
+    @OneToMany(() => Ticket, (ticket) => ticket.session)
+    ticket: Ticket[];
 }
 
 export default Session;
