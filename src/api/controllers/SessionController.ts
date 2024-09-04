@@ -6,12 +6,20 @@ export class SectionController {
     private sessionRepository = AppDataSource.getRepository(Session);
 
     async getAll(req: Request, res: Response) {
-        const sections = await this.sessionRepository.find({
+        const sessions = await this.sessionRepository.find({
             relations: ["movie"],
         });
-        return res.json(sections);
+        return res.json(sessions);
     }
 
+    async getById(req: Request, res: Response) {
+        const { id } = req.params;
+        const section = await this.sessionRepository.findOne({ where: { id: parseInt(id) }, relations: ["movie"] });
+        if (section) {
+            return res.json(section);
+        }
+        return res.status(404).json({ message: "seção não encontrada" });
+    }
     async post(req: Request, res: Response) {
         const newSection = this.sessionRepository.post(req.body);
         await this.sessionRepository.save(newSection);

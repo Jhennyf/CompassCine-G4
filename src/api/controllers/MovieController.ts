@@ -10,6 +10,15 @@ export class MovieController {
         return res.json(movies);
     }
 
+    async getById(req: Request, res: Response) {
+        const { id } = req.params;
+        const movie = await this.movieRepository.findOneBy({ id: parseInt(id) });
+        if (movie) {
+            return res.json(movie);
+        }
+        return res.status(404).json({ message: "Filme não encontrado" });
+    }
+
     async post(req: Request, res: Response) {
         const newMovie = this.movieRepository.post(req.body);
         await this.movieRepository.save(newMovie);
