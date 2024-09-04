@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "@database";
+import { AppDataSource } from "../../database/index";
 import { Session } from "@database/entities/Session";
 
 export class SectionController {

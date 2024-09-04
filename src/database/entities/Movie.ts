@@ -11,7 +11,7 @@ import { Session } from "./Session";
 @Entity("movies")
 export class Movie {
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column()
     name: string;

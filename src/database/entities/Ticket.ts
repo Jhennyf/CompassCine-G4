@@ -9,7 +9,7 @@ import { Session } from "./Session";
 @Entity("tickets")
 export class Ticket {
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column()
     value: number;
