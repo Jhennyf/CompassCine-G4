@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "@database";
-import { Movie } from "@database/entities/Movie";
+import { AppDataSource } from "../../database/index";
+import Movie  from "../../database/entities/Movie";
 
 export class MovieController {
     private movieRepository = AppDataSource.getRepository(Movie);
 
     async getAll(req: Request, res: Response) {
         const movies = await this.movieRepository.find();
-        return res.json(movies);
+        return res.json({message: "aaaaaa"});
     }
 
     async getById(req: Request, res: Response) {

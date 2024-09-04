@@ -1,7 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { 
+    Entity, 
+    PrimaryGeneratedColumn, 
+    Column, 
+    ManyToOne 
+} from "typeorm";
 import { Session } from "./Session";
 
-@Entity("Tickets")
+@Entity("tickets")
 export class Ticket {
     @PrimaryGeneratedColumn()
     id: string;

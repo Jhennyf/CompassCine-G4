@@ -1,7 +1,9 @@
 // Importações Necessárias
+import 'reflect-metadata';
 import express from 'express';
 import 'dotenv/config';
-import movieRouter from './routes/routes';
+import '../src/database/index'
+import { MovieController } from '../src/api/controllers/MovieController';
 
 // Models
 
@@ -18,36 +20,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use(movieRouter)
+const movieController = new MovieController();
+
+app.get('/', movieController.getAll)
 
 app.listen(process.env.PORT_SERVER, () => {
     console.log(`App listening port ${process.env.PORT_SERVER}`)
 });
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-
-
-app.get('/', (req, res) => {
-    return res.send("A")
-})
-app.use(movieRouter)
-
-app.listen(process.env.PORT_SERVER, () => {
-    console.log(`App listening port ${process.env.PORT_SERVER}`)
-});
-
-// Importações Necessárias
-
-import express from 'express';
-import 'dotenv/config';
-
-// Models
-
-// Controllers
-
-// Services
-
-// Routes
-
-
-// Express
