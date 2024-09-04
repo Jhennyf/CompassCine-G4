@@ -39,7 +39,9 @@ export class Session {
     @ManyToOne(() => Movie, (movie) => movie.session)
     movie: Movie;
 
-    @OneToMany(() => Ticket, (ticket) => ticket.session)
+    @OneToMany(() => Ticket, (ticket) => ticket.session, {
+        cascade: true,
+    })
     ticket: Ticket[];
 }
 
