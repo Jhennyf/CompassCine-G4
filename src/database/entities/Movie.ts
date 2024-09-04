@@ -17,9 +17,6 @@ export class Movie {
     name: string;
 
     @Column()
-    image: string;
-
-    @Column()
     description: string;
 
     @Column()
@@ -38,7 +35,9 @@ export class Movie {
     updated_at: Date;
     //migation: time stamp with time zone
 
-    @OneToMany(() => Session, (session) => session.movie)
+    @OneToMany(() => Session, (session) => session.movie, {
+        cascade: true,
+    })
     session: Session[];
 }
 
