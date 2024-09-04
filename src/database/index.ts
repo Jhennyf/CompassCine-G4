@@ -1,7 +1,15 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
 
-import { MigrationName1725393222602 } from './migrations/1725393222602-migrationName'
+// Migrations
+import { MigrationName1725393222602 } from './migrations/1725393222602-migrationName';
+
+// Entities
+import Movie from "./entities/Movie";
+import Session from "./entities/Session";
+import Ticket from "./entities/Ticket";
+
+
 
 export const AppDataSource = new DataSource({
     type: "sqlite",
@@ -9,6 +17,7 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: true,
     migrations: [MigrationName1725393222602],
+    entities: [Movie, Session, Ticket],
     migrationsTableName: '_migrations',
     migrationsRun: true,
     

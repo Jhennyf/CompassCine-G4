@@ -6,7 +6,7 @@ import {
 } from "typeorm";
 import { Session } from "./Session";
 
-@Entity("Tickets")
+@Entity("tickets")
 export class Ticket {
     @PrimaryGeneratedColumn()
     id: string;
