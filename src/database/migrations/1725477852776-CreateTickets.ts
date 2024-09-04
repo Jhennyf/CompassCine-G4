@@ -8,7 +8,7 @@ export class CreateTickets1725477852776 implements MigrationInterface {
                 columns: [
                     {
                         name: "id",
-                        type: "number",
+                        type: "int",
                         isPrimary: true,
                     },
                     {
@@ -32,16 +32,6 @@ export class CreateTickets1725477852776 implements MigrationInterface {
                         default: "now()",
                     },
                 ],
-                foreignKeys: [
-                    {
-                      name: 'TokenUser',
-                      referencedTableName: 'sessions',
-                      referencedColumnNames: ['id'],
-                      columnNames: ['session_id'],
-                      onDelete: 'CASCADE',
-                      onUpdate: 'CASCADE',
-                    },
-                  ],
             }),
         );
     }

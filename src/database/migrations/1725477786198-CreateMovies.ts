@@ -17,7 +17,7 @@ export class CreateMovies1725477786198 implements MigrationInterface {
                     },
                     {
                         name: "actors",
-                        type: "decimal",
+                        type: "varchar",
                     },
                     {
                         name: "genre",
