@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../../database/index";
-import Movie  from "../../database/entities/Movie";
+import { AppDataSource } from "@database";
+import { Movie } from "@database/entities/Movie";
 
 export class MovieController {
     private movieRepository = AppDataSource.getRepository(Movie);
 
     async getAll(req: Request, res: Response) {
         const movies = await this.movieRepository.find();
-        return res.json({message: "aaaaaa"});
+        return res.json(movies);
     }
 
     async getById(req: Request, res: Response) {
@@ -16,7 +16,7 @@ export class MovieController {
         if (movie) {
             return res.json(movie);
         }
-        return res.status(404).json({ message: "Filme não encontrado" });
+        return res.status(404).json({ message: "movie not found." });
     }
 
     async post(req: Request, res: Response) {
@@ -36,7 +36,7 @@ export class MovieController {
             const result = await this.movieRepository.save(movie);
             return res.json(result);
         }
-        return res.status(404).json({ message: "Não encontrado" });
+        return res.status(404).json({ message: "movie not found." });
     }
 
     async delete(req: Request, res: Response) {
@@ -45,6 +45,6 @@ export class MovieController {
         if (result.affected) {
             return res.status(204).send();
         }
-        return res.status(404).json({ message: "Filme não encontrado" });
+        return res.status(404).json({ message: "movie not found." });
     }
 }

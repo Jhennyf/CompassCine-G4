@@ -21,7 +21,7 @@ export class TicketController {
         if (ticket) {
             return res.json(ticket);
         }
-        return res.status(404).json({ message: "Ticket not found" });
+        return res.status(404).json({ message: "ticket not found" });
     }
 
     async post(req: Request, res: Response) {
@@ -41,7 +41,7 @@ export class TicketController {
             const result = await this.ticketRepository.save(ticket);
             return res.json(result);
         }
-        return res.status(404).json({ message: "Ticket not found" });
+        return res.status(404).json({ message: "ticket not found" });
     }
 
     async delete(req: Request, res: Response) {
@@ -49,6 +49,6 @@ export class TicketController {
         const result = await this.ticketRepository.delete(id);
         return result.affected
             ? res.status(204).send()
-            : res.status(404).json({ message: "Ticket not found" });
+            : res.status(404).json({ message: "ticket not found" });
     }
 }
