@@ -1,6 +1,6 @@
 import express from "express";
 import { celebrate, Joi, Segments } from "celebrate";
-//import { SectionController } from "@api/controllers/SessionController";
+import { SectionController } from "@api/controllers/SessionController";
 import Session from "../models/SessionModel";
 const router = express.Router();
 
