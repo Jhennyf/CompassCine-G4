@@ -4,6 +4,8 @@ import CreateMovieService from "../services/Movies/CreateMovieService";
 import ListMovieService from "../services/Movies/ListMovieService";
 import ShowMoviceService from "../services/Movies/ShowMovieService";
 import UpdateMovieService from "../services/Movies/UpdateMovieService";
+import DeleteMovieService from "../services/Movies/DeleteMovieService";
+import { json } from "stream/consumers";
 
 export default class MovieController {
     // Creation Movie Controller
@@ -48,6 +50,15 @@ export default class MovieController {
         const movie = await updateMovieService.execute({id, name, description, actors, genre, release_date})
 
         return res.json(movie);
+    }
+    // Delete Movie Controller
+    public async delete(req: Request, res: Response): Promise<Response> {
+        const id = Number(req.params.id);
 
+        const deleteMovie = new DeleteMovieService();
+
+        await deleteMovie.execute({id});
+
+        return res.status(204).json({});
     }
 }

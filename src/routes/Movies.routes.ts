@@ -1,70 +1,70 @@
 import express from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
-import { MovieController } from './../api/controllers/MovieController';
+import MovieController from './../api/controllers/MovieController';
 
-const router = express.Router();
+const movieRoutes = express.Router();
 const movieController = new MovieController();
 
 
 // Lista todos os filmes
-router.get(
+movieRoutes.get(
     "/movies",
-    movieController.getAll    
+    movieController.list  
 );
 
 // Buscar filme
-router.get(
+movieRoutes.get(
     "/movies/:id", 
-    celebrate({
-        [Segments.PARAMS]: {
-            id: Joi.string().guid().required(),
-        },
-    }),
-    movieController.getById
+    // celebrate({
+    //     [Segments.PARAMS]: {
+    //         id: Joi.string().guid().required(),
+    //     },
+    // }),
+    movieController.show
 );
 
 // Cadastrar filme
-router.post(
+movieRoutes.post(
   "/movies",
-  celebrate({
-    [Segments.BODY]: {
-      name: Joi.string().required(),
-      description: Joi.string().required(),
-      actors: Joi.array().min(1).required(),
-      genre: Joi.string().required(),
-      release_date: Joi.date().required(),
-    },
-  }),
-    movieController.post
+//   celebrate({
+//     [Segments.BODY]: {
+//       name: Joi.string().required(),
+//       description: Joi.string().required(),
+//       actors: Joi.array().min(1).required(),
+//       genre: Joi.string().required(),
+//       release_date: Joi.date().required(),
+//     },
+//   }),
+    movieController.create
 );
 
 // Atualizar filme
-router.put( 
+movieRoutes.put( 
   "/movies/:id",
-  celebrate({
-    [Segments.BODY]: {
-      name: Joi.string().required(),
-      description: Joi.string().required(),
-      actors: Joi.array().min(1).required(),
-      genre: Joi.string().required(),
-      release_date: Joi.date().required(),
-    },
-    [Segments.PARAMS]: {
-      id: Joi.number().integer().required(),
-    },
-  }),
-    movieController.put
+//   celebrate({
+//     [Segments.BODY]: {
+//       name: Joi.string().required(),
+//       description: Joi.string().required(),
+//       actors: Joi.array().min(1).required(),
+//       genre: Joi.string().required(),
+//       release_date: Joi.date().required(),
+//     },
+//     [Segments.PARAMS]: {
+//       id: Joi.number().integer().required(),
+//     },
+//   }),
+    movieController.update
 );
 
 // Deletar filme
-router.delete(
+movieRoutes.delete(
   "/movies/:id",
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.number().integer().required(),
-    },
-  }),
+//   celebrate({
+//     [Segments.PARAMS]: {
+//       id: Joi.number().integer().required(),
+//     },
+//   }),
     movieController.delete
 );
 
-export default router;
+export default movieRoutes;

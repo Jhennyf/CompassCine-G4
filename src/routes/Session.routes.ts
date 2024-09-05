@@ -2,11 +2,11 @@ import express from "express";
 import { celebrate, Joi, Segments } from "celebrate";
 import { SectionController } from "../api/controllers/SessionController";
 
-const router = express.Router();
+const sessionRoutes = express.Router();
 const sessionController = new SectionController();
 
 // Cadastrar sessão
-router.post(
+sessionRoutes.post(
   "/movies/:movie_id/sessions",
   celebrate({
     [Segments.BODY]: {
@@ -20,7 +20,7 @@ router.post(
 );
 
 // Atualizar sessão
-router.put(
+sessionRoutes.put(
   "/movies/:movie_id/sessions/:id",
   celebrate({
     [Segments.BODY]: {
@@ -37,7 +37,7 @@ router.put(
 );
 
 // Deletar sessão
-router.delete(
+sessionRoutes.delete(
   "/movies/:movie_id/sessions/:id",
   celebrate({
     [Segments.PARAMS]: {
@@ -47,4 +47,4 @@ router.delete(
     sessionController.delete
 );
 
-export default router;
+export default sessionRoutes;
