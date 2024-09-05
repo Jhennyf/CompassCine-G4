@@ -1,8 +1,9 @@
 import express from "express";
 import { celebrate, Joi, Segments } from "celebrate";
-import Session from "../models/SessionModel";
-const router = express.Router();
+import { SectionController } from "../api/controllers/SessionController";
 
+const router = express.Router();
+const sessionController = new SectionController();
 
 // Cadastrar sessão
 router.post(
@@ -15,11 +16,7 @@ router.post(
       time: Joi.string().required(),
     },
   }),
-  async (request, response) => {
-    const session = new Session(request.body);
-    await session.save();
-    response.json(session);
-  }
+    sessionController.post
 );
 
 // Atualizar sessão
@@ -36,10 +33,7 @@ router.put(
       id: Joi.number().integer().required(),
     },
   }),
-  async (request, response) => {
-    const session = await Session.findByIdAndUpdate(request.params.id, request.body, { new: true });
-    response.json(session);
-  }
+    sessionController.put
 );
 
 // Deletar sessão
@@ -50,10 +44,7 @@ router.delete(
       id: Joi.number().integer().required(),
     },
   }),
-  async (request, response) => {
-    const session = await Session.findByIdAndDelete(request.params.id);
-    response.json(session);
-  }
+    sessionController.delete
 );
 
 export default router;
