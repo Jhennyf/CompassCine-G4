@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 
 import CreateMovieService from "../services/Movies/CreateMovieService";
+import ListMovieService from "../services/Movies/ListMovieService";
+import ShowMoviceService from "../services/Movies/ShowMovieService";
 
 export default class MovieController {
     // Creation Movie Controller
@@ -20,6 +22,21 @@ export default class MovieController {
     }
     // List All Movies Controller
     public async list(req: Request, res: Response): Promise <Response> {
-        
+        const listMovieService = new ListMovieService();
+
+        const movie = await listMovieService.execute();
+
+        return res.json(movie);
+    }
+
+    // Show Movie Controller
+    public async show(req: Request, res: Response): Promise <Response> {
+        const id = Number(req.params.id);
+
+        const showMovieService = new ShowMoviceService();
+
+        const movie = await showMovieService.execute({ id });
+
+        return res.json(movie);
     }
 }
