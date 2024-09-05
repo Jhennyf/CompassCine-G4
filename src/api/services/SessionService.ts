@@ -4,37 +4,61 @@ import Session from "../../database/entities/Session";
 export class SessionService {
     private sessionRepository = AppDataSource.getRepository(Session);
 
-    // Cadastrar sessão
     async createSession(session: Session) {
         try {
+            await this.checkSessionConflict(
+                session.day.toISOString(),
+                session.time,
+                session.room,
+            );
+
             return this.sessionRepository.save(session);
         } catch (error) {
             return error;
         }
     }
+
     // Buscar sessão por id
     async getSessionById(id: number) {
-        const session = await this.sessionRepository.findOne(
-            { where: { id } }
-        );
+        const session = await this.sessionRepository.findOne({ where: { id } });
         if (session == null) {
             throw new Error("Session not found");
         }
 
         return session;
     }
-    // Buscar todas as sessões
+
     async getSessions() {
         return this.sessionRepository.find();
     }
 
-    // Atualizar sessão
     async updateSession(id: number, session: Session) {
-        return this.sessionRepository.update(id, session);
+        try {
+            const existingSession = await this.getSessionById(id);
+
+            await this.checkSessionConflict(session.day.toISOString(), session.time, session.room);
+
+            return this.sessionRepository.update(id, session);
+        } catch (error) {
+            return error;
+        }
     }
-    
-    // Deletar sessão
-    async deleteSession(id: number) {
-        return this.sessionRepository.delete(id);
+
+    async checkSessionConflict(day: string, time: string, room: string) {
+        const dayDate = new Date(day);
+
+        // Buscar todas as sessões daquela data
+        const sessionsOnSameDay = await this.sessionRepository.find({
+            where: { day: dayDate },
+        });
+
+        // Verificar se há sessões na mesma sala e horário
+        const conflictingSession = sessionsOnSameDay.find(
+            (session) => session.room === room && session.time === time,
+        );
+
+        if (conflictingSession) {
+            throw new Error("Session already exists");
+        }
     }
 }
