@@ -13,7 +13,7 @@ export class AddSessionIdToCreateTicket1725481344380
             "tickets",
             new TableColumn({
                 name: "session_id",
-                type: "number",
+                type: "int",
                 isNullable: true,
             }),
         );

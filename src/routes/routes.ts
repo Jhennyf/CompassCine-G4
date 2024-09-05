@@ -7,3 +7,4 @@ movieRouter.get("/movies", (request: Request, response: Response) => {
 })
 
 export default movieRouter;
+
