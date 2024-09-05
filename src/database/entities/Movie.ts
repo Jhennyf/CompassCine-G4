@@ -11,13 +11,10 @@ import { Session } from "./Session";
 @Entity("movies")
 export class Movie {
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column()
     name: string;
-
-    @Column()
-    image: string;
 
     @Column()
     description: string;
@@ -38,7 +35,9 @@ export class Movie {
     updated_at: Date;
     //migation: time stamp with time zone
 
-    @OneToMany(() => Session, (session) => session.movie)
+    @OneToMany(() => Session, (session) => session.movie, {
+        cascade: true,
+    })
     session: Session[];
 }
 
