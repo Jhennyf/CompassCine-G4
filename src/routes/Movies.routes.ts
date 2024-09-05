@@ -1,20 +1,27 @@
 import express from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
-import Movie from "../api/models/MovieModel";
+import { MovieController } from './../api/controllers/MovieController';
+
 const router = express.Router();
+const movieController = new MovieController();
 
 
 // Lista todos os filmes
-router.get("/movies", async (request, response) => {
-    const movies = await Movie.find();
-    response.json(movies);
-});
+router.get(
+    "/movies",
+    movieController.getAll    
+);
 
 // Buscar filme
-router.get("/movies/:id", async (request, response) => {
-    const movie = await Movie.findById(request.params.id);  
-    response.json(movie);
-});
+router.get(
+    "/movies/:id", 
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().guid().required(),
+        },
+    }),
+    movieController.getById
+);
 
 // Cadastrar filme
 router.post(
@@ -28,11 +35,7 @@ router.post(
       release_date: Joi.date().required(),
     },
   }),
-  async (request, response) => {
-    const movie = new Movie(request.body);
-    await movie.save();
-    response.json(movie);
-  }
+    movieController.post
 );
 
 // Atualizar filme
@@ -50,10 +53,7 @@ router.put(
       id: Joi.number().integer().required(),
     },
   }),
-  async (request, response) => {
-    const movie = await Movie.findByIdAndUpdate(request.params.id, request.body, { new: true });
-    response.json(movie);
-  }
+    movieController.put
 );
 
 // Deletar filme
@@ -64,10 +64,7 @@ router.delete(
       id: Joi.number().integer().required(),
     },
   }),
-  async (request, response) => {
-    const movie = await Movie.findByIdAndDelete(request.params.id);
-    response.json(movie);
-  }
+    movieController.delete
 );
 
 export default router;
