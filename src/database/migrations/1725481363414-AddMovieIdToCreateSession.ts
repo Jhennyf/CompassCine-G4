@@ -13,7 +13,7 @@ export class AddMovieIdToCreateSession1725481363414
             "sessions",
             new TableColumn({
                 name: "movie_id",
-                type: "number",
+                type: "int",
                 isNullable: true,
             }),
         );

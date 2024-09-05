@@ -1,8 +1,9 @@
 import express from "express";
 import { celebrate, Joi, Segments } from "celebrate";
-import { SectionController } from "@api/controllers/SessionController";
-import Ticket from "../models/TicketModel";
+import { TicketController } from "@api/controllers/TikcketsController";
+
 const router = express.Router();
+const ticketController = new TicketController();
 
 // Cadastrar ticket
 router.post(
@@ -13,11 +14,7 @@ router.post(
       value: Joi.number().required(),
     },
   }),
-  async (request, response) => {
-    const ticket = new Ticket(request.body);
-    await ticket.save();
-    response.json(ticket);
-  }
+  ticketController.post
 );
 
 // Atualizar ticket
@@ -32,10 +29,7 @@ router.put(
       id: Joi.number().integer().required(),
     },
   }),
-  async (request, response) => {
-    const ticket = await Ticket.findByIdAndUpdate(request.params.id, request.body, { new: true });
-    response.json(ticket);
-  }
+    ticketController.put
 );
 
 // Deletar ticket
@@ -46,10 +40,7 @@ router.delete(
       id: Joi.number().integer().required(),
     },
   }),
-  async (request, response) => {
-    const ticket = await Ticket.findByIdAndDelete(request.params.id);
-    response.json(ticket);
-  }
+    ticketController.delete
 );
 
 export default router;
