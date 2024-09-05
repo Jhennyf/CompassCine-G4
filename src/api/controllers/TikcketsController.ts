@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "@database";
+import { AppDataSource } from "../../database/index";
 import { Ticket } from "@database/entities/Ticket";
 
 export class TicketController {
