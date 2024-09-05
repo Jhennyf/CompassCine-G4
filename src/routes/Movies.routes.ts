@@ -30,7 +30,7 @@ router.post(
     [Segments.BODY]: {
       name: Joi.string().required(),
       description: Joi.string().required(),
-      actors: Joi.string().required(),
+      actors: Joi.array().min(1).required(),
       genre: Joi.string().required(),
       release_date: Joi.date().required(),
     },
@@ -39,13 +39,13 @@ router.post(
 );
 
 // Atualizar filme
-router.put(
+router.put( 
   "/movies/:id",
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
       description: Joi.string().required(),
-      actors: Joi.string().required(),
+      actors: Joi.array().min(1).required(),
       genre: Joi.string().required(),
       release_date: Joi.date().required(),
     },
