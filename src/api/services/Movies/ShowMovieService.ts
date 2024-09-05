@@ -9,12 +9,12 @@ class ShowMoviceService {
     public async execute({ id }: IParams): Promise<Movie | null> {
         const movieRepository = AppDataSource.getRepository(Movie);
     
-        const customer = await movieRepository.findOne({
+        const movie = await movieRepository.findOne({
             where: {id},
         });
     
     
-        return customer;
+        return movie;
     }
 }
 

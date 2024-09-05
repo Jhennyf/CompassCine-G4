@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import CreateMovieService from "../services/Movies/CreateMovieService";
 import ListMovieService from "../services/Movies/ListMovieService";
 import ShowMoviceService from "../services/Movies/ShowMovieService";
+import UpdateMovieService from "../services/Movies/UpdateMovieService";
 
 export default class MovieController {
     // Creation Movie Controller
@@ -28,7 +29,6 @@ export default class MovieController {
 
         return res.json(movie);
     }
-
     // Show Movie Controller
     public async show(req: Request, res: Response): Promise <Response> {
         const id = Number(req.params.id);
@@ -38,5 +38,16 @@ export default class MovieController {
         const movie = await showMovieService.execute({ id });
 
         return res.json(movie);
+    }
+    // Update Movie Controller
+    public async update(req: Request, res: Response): Promise <Response> {
+        const {name, description, actors, genre, release_date } = req.body;
+        const id = Number(req.params.id);
+
+        const updateMovieService = new UpdateMovieService();
+        const movie = await updateMovieService.execute({id, name, description, actors, genre, release_date})
+
+        return res.json(movie);
+
     }
 }

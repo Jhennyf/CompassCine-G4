@@ -15,6 +15,7 @@ const movieController = new MovieController();
 app.post("/", movieController.create);
 app.get("/", movieController.list);
 app.get("/:id", movieController.show);
+app.put("/:id", movieController.update);
 
 app.listen(process.env.PORT_SERVER, () => {
     console.log(`[🤖] API: COMPASSCINE - ONLINE - PORTA: ${process.env.PORT_SERVER}`)
