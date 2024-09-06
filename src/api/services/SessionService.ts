@@ -34,7 +34,7 @@ export class SessionService {
 
     async updateSession(id: number, session: Session) {
         try {
-            const existingSession = await this.getSessionById(id);
+            await this.getSessionById(id);
 
             await this.checkSessionConflict(session.day.toISOString(), session.time, session.room);
 
