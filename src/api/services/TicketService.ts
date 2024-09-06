@@ -3,7 +3,7 @@ import Ticket from "../../database/entities/Ticket";
 
 export class TicketService {
     private ticketRepository = AppDataSource.getRepository(Ticket);
-    // Cadastrar ticket
+    
     async createTicket(ticket: Ticket) {
         try {
             const chair = await this.ticketRepository.findOne({
@@ -18,7 +18,6 @@ export class TicketService {
         }
     }
 
-    // Buscar ticket por id
     async getTicketById(id: number) {
         const ticket = await this.ticketRepository.findOne({
             where: { id },
@@ -31,7 +30,6 @@ export class TicketService {
         return ticket;
     }
 
-    // Buscar todos os tickets
     async getTickets() {
         return this.ticketRepository.find();
     }
@@ -40,7 +38,6 @@ export class TicketService {
         return this.ticketRepository.update(id, ticket);
     }
 
-    // Deletar ticket
     async deleteTicket(id: number) {
         return this.ticketRepository.delete(id);
     }
