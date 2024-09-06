@@ -11,14 +11,13 @@ export class SessionService {
                 session.time,
                 session.room,
             );
-
             return this.sessionRepository.save(session);
         } catch (error) {
             return error;
         }
     }
 
-    // Buscar sessão por id
+
     async getSessionById(id: number) {
         const session = await this.sessionRepository.findOne({ where: { id } });
         if (session == null) {
@@ -47,12 +46,9 @@ export class SessionService {
     async checkSessionConflict(day: string, time: string, room: string) {
         const dayDate = new Date(day);
 
-        // Buscar todas as sessões daquela data
         const sessionsOnSameDay = await this.sessionRepository.find({
             where: { day: dayDate },
         });
-
-        // Verificar se há sessões na mesma sala e horário
         const conflictingSession = sessionsOnSameDay.find(
             (session) => session.room === room && session.time === time,
         );
