@@ -35,5 +35,6 @@ app.use(
 );
 
 app.listen(process.env.PORT_SERVER, () => {
+    // eslint-disable-next-line no-console
     console.log(`[🤖] API: COMPASSCINE - ONLINE - PORTA: ${process.env.PORT_SERVER}`)
 });
