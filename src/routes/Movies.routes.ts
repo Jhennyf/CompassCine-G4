@@ -12,7 +12,7 @@ movieRoutes.get(
     movieController.list  
 );
 
-// Buscar filme
+// Search a movie
 movieRoutes.get(
     "/movies/:id", 
     celebrate({
