@@ -5,10 +5,14 @@ import { TicketController } from "@api/controllers/TikcketsController";
 const ticketRoutes = express.Router();
 const ticketController = new TicketController();
 
-// Cadastrar ticket
+// creat ticket
 ticketRoutes.post(
   "/movies/:movie_id/sessions/:session_id/tickets",
   celebrate({
+    [Segments.PARAMS]: {
+        movie_id: Joi.number().integer().required(),
+        session_id: Joi.number().integer().required(),
+      },
     [Segments.BODY]: {
       chair: Joi.string().required(),
       value: Joi.number().required(),
@@ -17,7 +21,7 @@ ticketRoutes.post(
   ticketController.post
 );
 
-// Atualizar ticket
+// update ticket
 ticketRoutes.put(
   "/movies/:movie_id/sessions/:session_id/tickets/:id",
   celebrate({
@@ -32,7 +36,7 @@ ticketRoutes.put(
     ticketController.put
 );
 
-// Deletar ticket
+// Delete ticket
 ticketRoutes.delete(
   "/movies/:movie_id/sessions/:session_id/tickets/:id",
   celebrate({
