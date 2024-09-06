@@ -1,5 +1,6 @@
 import Movie from "../../../database/entities/Movie";
 import { AppDataSource } from "../../../database/";
+import AppError from "../../middlewares/AppError";
 
 interface IParams {
     id: number;
@@ -12,6 +13,10 @@ class ShowMoviceService {
         const movie = await movieRepository.findOne({
             where: {id},
         });
+
+        if(!movie) {
+            throw new AppError("Movie not found.")
+        }
     
     
         return movie;
