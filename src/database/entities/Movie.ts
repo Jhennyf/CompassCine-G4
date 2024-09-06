@@ -19,8 +19,8 @@ export class Movie {
     @Column()
     description: string;
 
-    @Column()
-    actors: string;
+    @Column({type: "simple-array"})
+    actors: string[];
 
     @Column()
     genre: string;

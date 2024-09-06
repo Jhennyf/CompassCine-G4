@@ -1,28 +1,22 @@
-// Importações Necessárias
 import "reflect-metadata";
 import express from "express";
 import "dotenv/config";
+import { errors } from 'celebrate';
+
 import "../src/database/index";
-import { MovieController } from "../src/api/controllers/MovieController";
 
-// Models
+import movieRouter from "./routes/Movies.routes";
 
-// Controllers
-
-// Services
-
-// Routes
-
-// Express
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const movieController = new MovieController();
 
-app.get("/", movieController.getAll);
+app.use('/api', movieRouter)
+
+app.use(errors())
 
 app.listen(process.env.PORT_SERVER, () => {
-    console.log(`App listening port ${process.env.PORT_SERVER}`);
+    console.log(`[🤖] API: COMPASSCINE - ONLINE - PORTA: ${process.env.PORT_SERVER}`)
 });

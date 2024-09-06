@@ -1,50 +1,63 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../../database/index";
-import Movie  from "../../database/entities/Movie";
 
-export class MovieController {
-    private movieRepository = AppDataSource.getRepository(Movie);
+import CreateMovieService from "../services/Movies/CreateMovieService";
+import ListMovieService from "../services/Movies/ListMovieService";
+import ShowMoviceService from "../services/Movies/ShowMovieService";
+import UpdateMovieService from "../services/Movies/UpdateMovieService";
+import DeleteMovieService from "../services/Movies/DeleteMovieService";
 
-    async getAll(req: Request, res: Response) {
-        const movies = await this.movieRepository.find();
-        return res.json({message: "aaaaaa"});
-    }
+export default class MovieController {
+    // Creation Movie Controller
+    public async create(req: Request, res: Response): Promise <Response> {
+        const {name, description, actors, genre, release_date } = req.body;
 
-    async getById(req: Request, res: Response) {
-        const { id } = req.params;
-        const movie = await this.movieRepository.findOneBy({ id: parseInt(id) });
-        if (movie) {
-            return res.json(movie);
-        }
-        return res.status(404).json({ message: "Filme não encontrado" });
-    }
-
-    async post(req: Request, res: Response) {
-        const newMovie = this.movieRepository.post(req.body);
-        await this.movieRepository.save(newMovie);
-        return res.status(201).json(newMovie);
-    }
-
-    async put(req: Request, res: Response) {
-        const { id } = req.params;
-        const movie = await this.movieRepository.findOneBy({
-            id: parseInt(id),
+        const movieService = new CreateMovieService();
+        const movie = await movieService.execute({
+            name,
+            description,
+            actors,
+            genre,
+            release_date 
         });
 
-        if (movie) {
-            this.movieRepository.merge(movie, req.body);
-            const result = await this.movieRepository.save(movie);
-            return res.json(result);
-        }
-        return res.status(404).json({ message: "Não encontrado" });
+        return res.json(movie)
     }
+    // List All Movies Controller
+    public async list(req: Request, res: Response): Promise <Response> {
+        const listMovieService = new ListMovieService();
 
-    async delete(req: Request, res: Response) {
-        const { id } = req.params;
-        const result = await this.movieRepository.delete(id);
-        if (result.affected) {
-            return res.status(204).send();
-        }
-        return res.status(404).json({ message: "Filme não encontrado" });
+        const movie = await listMovieService.execute();
+
+        return res.json(movie);
+    }
+    // Show Movie Controller
+    public async show(req: Request, res: Response): Promise <Response> {
+        const id = Number(req.params.id);
+
+        const showMovieService = new ShowMoviceService();
+
+        const movie = await showMovieService.execute({ id });
+
+        return res.json(movie);
+    }
+    // Update Movie Controller
+    public async update(req: Request, res: Response): Promise <Response> {
+        const {name, description, actors, genre, release_date } = req.body;
+        const id = Number(req.params.id);
+
+        const updateMovieService = new UpdateMovieService();
+        const movie = await updateMovieService.execute({id, name, description, actors, genre, release_date})
+
+        return res.json(movie);
+    }
+    // Delete Movie Controller
+    public async delete(req: Request, res: Response): Promise<Response> {
+        const id = Number(req.params.id);
+
+        const deleteMovie = new DeleteMovieService();
+
+        await deleteMovie.execute({id});
+
+        return res.status(204).json({});
     }
 }

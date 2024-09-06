@@ -2,11 +2,11 @@ import express from "express";
 import { celebrate, Joi, Segments } from "celebrate";
 import { TicketController } from "@api/controllers/TikcketsController";
 
-const router = express.Router();
+const ticketRoutes = express.Router();
 const ticketController = new TicketController();
 
 // Cadastrar ticket
-router.post(
+ticketRoutes.post(
   "/movies/:movie_id/sessions/:session_id/tickets",
   celebrate({
     [Segments.BODY]: {
@@ -18,7 +18,7 @@ router.post(
 );
 
 // Atualizar ticket
-router.put(
+ticketRoutes.put(
   "/movies/:movie_id/sessions/:session_id/tickets/:id",
   celebrate({
     [Segments.BODY]: {
@@ -33,7 +33,7 @@ router.put(
 );
 
 // Deletar ticket
-router.delete(
+ticketRoutes.delete(
   "/movies/:movie_id/sessions/:session_id/tickets/:id",
   celebrate({
     [Segments.PARAMS]: {
@@ -43,4 +43,4 @@ router.delete(
     ticketController.delete
 );
 
-export default router;
+export default ticketRoutes;

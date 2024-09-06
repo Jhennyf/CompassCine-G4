@@ -12,7 +12,7 @@ export const AppDataSource = new DataSource({
     type: "sqlite",
     database: "compasscine.db",
     synchronize: true,
-    logging: true,
+    logging: false,
     migrations: ["src/database/migrations/**.ts"],
     entities: [Movie, Session, Ticket],
     migrationsTableName: "_migrations",

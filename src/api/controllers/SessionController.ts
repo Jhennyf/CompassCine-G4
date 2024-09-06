@@ -19,7 +19,7 @@ export class SectionController {
         if (section) {
             return res.json(section);
         }
-        return res.status(404).json({ message: "seção não encontrada" });
+        return res.status(404).json({ message: "session not found." });
     }
     async post(req: Request, res: Response) {
         const newSection = this.sessionRepository.post(req.body);
@@ -38,7 +38,7 @@ export class SectionController {
             const result = await this.sessionRepository.save(section);
             return res.json(result);
         }
-        return res.status(404).json({ message: "Section not found" });
+        return res.status(404).json({ message: "session not found." });
     }
 
     async delete(req: Request, res: Response) {
@@ -47,6 +47,6 @@ export class SectionController {
         if (result.affected) {
             return res.status(204).send();
         }
-        return res.status(404).json({ message: "seção não encontrada" });
+        return res.status(404).json({ message: "session not found." });
     }
 }
