@@ -1,6 +1,8 @@
 import Movie from "../../../database/entities/Movie";
 import { AppDataSource } from "../../../database/";
 import AppError from "../../middlewares/AppError";
+import { getCustomRepository } from "typeorm";
+import MoviesRepository from "@api/repositories/MoviesRepository";
 
 interface IParams {
     id: number;
@@ -8,17 +10,14 @@ interface IParams {
 
 class ShowMoviceService {
     public async execute({ id }: IParams): Promise<Movie | null> {
-        const movieRepository = AppDataSource.getRepository(Movie);
-    
-        const movie = await movieRepository.findOne({
-            where: {id},
-        });
+        const movieRepository = getCustomRepository(MoviesRepository);
 
-        if(!movie) {
-            throw new AppError("Movie not found.")
+        const movie = await movieRepository.findById(id);
+
+        if (!movie) {
+            throw new AppError("Movie not found.");
         }
-    
-    
+
         return movie;
     }
 }

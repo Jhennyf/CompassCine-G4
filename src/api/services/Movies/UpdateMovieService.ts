@@ -1,6 +1,8 @@
 import Movie from "../../../database/entities/Movie";
 import { AppDataSource } from "../../../database/";
 import AppError from "../../middlewares/AppError";
+import { getCustomRepository } from "typeorm";
+import MoviesRepository from "@api/repositories/MoviesRepository";
 
 interface IRequest {
     id: number;
@@ -20,14 +22,14 @@ class UpdateMovieService {
         genre,
         release_date,
     }: IRequest): Promise<Movie | null> {
-        const movieRepository = AppDataSource.getRepository(Movie);
+        const movieRepository = getCustomRepository(MoviesRepository);
 
-        const movie = await movieRepository.findOneBy({ id });
+        const movie = await movieRepository.findById(id);
         if (!movie) {
             throw new AppError("Movie is not found.");
         }
 
-        const movieExistsName = await movieRepository.findOneBy({ name });
+        const movieExistsName = await movieRepository.findByName(name);
         if (movieExistsName && name !== movie.name) {
             throw new AppError("Movie is already.");
         }
