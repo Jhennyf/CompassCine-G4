@@ -5,7 +5,6 @@ import ListMovieService from "../services/Movies/ListMovieService";
 import ShowMoviceService from "../services/Movies/ShowMovieService";
 import UpdateMovieService from "../services/Movies/UpdateMovieService";
 import DeleteMovieService from "../services/Movies/DeleteMovieService";
-import { json } from "stream/consumers";
 
 export default class MovieController {
     // Creation Movie Controller

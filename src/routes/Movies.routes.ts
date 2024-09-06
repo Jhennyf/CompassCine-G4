@@ -6,7 +6,7 @@ const movieRoutes = express.Router();
 const movieController = new MovieController();
 
 
-// Lista todos os filmes
+// List all Movies
 movieRoutes.get(
     "/movies",
     movieController.list  
@@ -15,55 +15,55 @@ movieRoutes.get(
 // Buscar filme
 movieRoutes.get(
     "/movies/:id", 
-    // celebrate({
-    //     [Segments.PARAMS]: {
-    //         id: Joi.string().guid().required(),
-    //     },
-    // }),
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().guid().required(),
+        },
+    }),
     movieController.show
 );
 
-// Cadastrar filme
+// Create a Movie
 movieRoutes.post(
   "/movies",
-//   celebrate({
-//     [Segments.BODY]: {
-//       name: Joi.string().required(),
-//       description: Joi.string().required(),
-//       actors: Joi.array().min(1).required(),
-//       genre: Joi.string().required(),
-//       release_date: Joi.date().required(),
-//     },
-//   }),
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      description: Joi.string().required(),
+      actors: Joi.array().min(1).required(),
+      genre: Joi.string().required(),
+      release_date: Joi.date().required(),
+    },
+  }),
     movieController.create
 );
 
-// Atualizar filme
+// Update a Movie
 movieRoutes.put( 
   "/movies/:id",
-//   celebrate({
-//     [Segments.BODY]: {
-//       name: Joi.string().required(),
-//       description: Joi.string().required(),
-//       actors: Joi.array().min(1).required(),
-//       genre: Joi.string().required(),
-//       release_date: Joi.date().required(),
-//     },
-//     [Segments.PARAMS]: {
-//       id: Joi.number().integer().required(),
-//     },
-//   }),
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      description: Joi.string().required(),
+      actors: Joi.array().min(1).required(),
+      genre: Joi.string().required(),
+      release_date: Joi.date().required(),
+    },
+    [Segments.PARAMS]: {
+      id: Joi.number().integer().required(),
+    },
+  }),
     movieController.update
 );
 
-// Deletar filme
+// Delete a Movie
 movieRoutes.delete(
   "/movies/:id",
-//   celebrate({
-//     [Segments.PARAMS]: {
-//       id: Joi.number().integer().required(),
-//     },
-//   }),
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.number().integer().required(),
+    },
+  }),
     movieController.delete
 );
 
