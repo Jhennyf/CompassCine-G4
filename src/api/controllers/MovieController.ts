@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { instanceToInstance } from "class-transformer"
 
 import CreateMovieService from "../services/Movies/CreateMovieService";
 import ListMovieService from "../services/Movies/ListMovieService";
@@ -20,7 +21,7 @@ export default class MovieController {
             release_date 
         });
 
-        return res.json(movie)
+        return res.json(instanceToInstance(movie))
     }
     // List All Movies Controller
     public async list(req: Request, res: Response): Promise <Response> {
@@ -38,7 +39,7 @@ export default class MovieController {
 
         const movie = await showMovieService.execute({ id });
 
-        return res.json(movie);
+        return res.json(instanceToInstance(movie));
     }
     // Update Movie Controller
     public async update(req: Request, res: Response): Promise <Response> {
@@ -48,7 +49,7 @@ export default class MovieController {
         const updateMovieService = new UpdateMovieService();
         const movie = await updateMovieService.execute({id, name, description, actors, genre, release_date})
 
-        return res.json(movie);
+        return res.json(instanceToInstance(movie));
     }
     // Delete Movie Controller
     public async delete(req: Request, res: Response): Promise<Response> {

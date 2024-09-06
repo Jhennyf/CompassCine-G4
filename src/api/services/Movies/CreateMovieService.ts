@@ -1,5 +1,6 @@
 import Movie from "../../../database/entities/Movie";
 import { AppDataSource } from "../../../database/";
+import AppError from "../../middlewares/AppError";
 
 interface IRequest {
     name: string;
@@ -18,16 +19,15 @@ class CreateMovieService {
         });
 
         if (movieExists) {
-            throw new Error("Movie already registered.")
+            throw new AppError("Movie already registered.")
         }
 
         if (description.length > 100) {
-            throw new Error("The description cannot exceed 100 characters.")
+            throw new AppError("The description cannot exceed 100 characters.")
         }
 
         const movie = movieRepository.create({ name, description, actors, genre, release_date });
         await movieRepository.save(movie)
-
         return movie;
     }
 }

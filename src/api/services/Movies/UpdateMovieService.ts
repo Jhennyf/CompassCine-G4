@@ -1,5 +1,6 @@
 import Movie from "../../../database/entities/Movie";
 import { AppDataSource } from "../../../database/";
+import AppError from "../../middlewares/AppError";
 
 interface IRequest {
     id: number;
@@ -16,13 +17,13 @@ class UpdateMovieService {
         
         const movie = await movieRepository.findOneBy({id});
         if(!movie) {
-            throw new Error("Movie is not found.")
+            throw new AppError("Movie is not found.")
         }
 
         const movieExistsName = await movieRepository.findOneBy({name});
 
         if(movieExistsName && name !== movie.name) {
-            throw new Error("Movie is already.")
+            throw new AppError("Movie is already.")
         }
 
         movie.name = name;
