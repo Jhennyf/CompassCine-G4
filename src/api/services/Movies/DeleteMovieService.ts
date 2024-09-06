@@ -1,5 +1,7 @@
 import Movie from "../../../database/entities/Movie";
 import { AppDataSource } from "../../../database/";
+import { getCustomRepository } from "typeorm";
+import MoviesRepository from "@api/repositories/MoviesRepository";
 
 interface IParams {
     id: number;
@@ -7,14 +9,12 @@ interface IParams {
 
 class DeleteMovieService {
     public async execute({ id }: IParams): Promise<void> {
-        const movieRepository = AppDataSource.getRepository(Movie);
-    
-        const movie = await movieRepository.findOne({
-            where: {id}
-        });
+        const movieRepository = getCustomRepository(MoviesRepository);
 
-        if(!movie) {
-            throw new Error("Movie is not found.")
+        const movie = await movieRepository.findById(id);
+
+        if (!movie) {
+            throw new Error("Movie is not found.");
         }
 
         await movieRepository.remove(movie);

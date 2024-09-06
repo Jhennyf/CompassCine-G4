@@ -17,7 +17,7 @@ movieRoutes.get(
     "/movies/:id", 
     celebrate({
         [Segments.PARAMS]: {
-            id: Joi.string().guid().required(),
+            id: Joi.number().required(),
         },
     }),
     movieController.show
