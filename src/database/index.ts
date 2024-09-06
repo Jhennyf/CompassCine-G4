@@ -21,4 +21,4 @@ export const AppDataSource = new DataSource({
 
 AppDataSource.initialize()
     .then(() => {})
-    .catch((error) => console.log(error));
+    .catch((error) => {throw new Error(error)});
