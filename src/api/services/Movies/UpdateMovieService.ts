@@ -12,18 +12,28 @@ interface IRequest {
 }
 
 class UpdateMovieService {
-    public async execute({ id, name, description, actors, genre, release_date }: IRequest): Promise<Movie | null> {
+    public async execute({
+        id,
+        name,
+        description,
+        actors,
+        genre,
+        release_date,
+    }: IRequest): Promise<Movie | null> {
         const movieRepository = AppDataSource.getRepository(Movie);
-        
-        const movie = await movieRepository.findOneBy({id});
-        if(!movie) {
-            throw new AppError("Movie is not found.")
+
+        const movie = await movieRepository.findOneBy({ id });
+        if (!movie) {
+            throw new AppError("Movie is not found.");
         }
 
-        const movieExistsName = await movieRepository.findOneBy({name});
+        const movieExistsName = await movieRepository.findOneBy({ name });
+        if (movieExistsName && name !== movie.name) {
+            throw new AppError("Movie is already.");
+        }
 
-        if(movieExistsName && name !== movie.name) {
-            throw new AppError("Movie is already.")
+        if (description.length > 100) {
+            throw new AppError("The description cannot exceed 100 characters.");
         }
 
         movie.name = name;
@@ -33,9 +43,8 @@ class UpdateMovieService {
         movie.release_date = release_date;
 
         await movieRepository.save(movie);
-    
-        return movie;
 
+        return movie;
     }
 }
 
