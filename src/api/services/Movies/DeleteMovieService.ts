@@ -10,7 +10,7 @@ class DeleteMovieService {
         const movieRepository = AppDataSource.getRepository(Movie);
     
         const movie = await movieRepository.findOne({
-            where: {id}
+            where: { id }
         });
 
         if(!movie) {
