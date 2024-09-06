@@ -16,13 +16,13 @@ class UpdateMovieService {
         
         const movie = await movieRepository.findOneBy({id});
         if(!movie) {
-            throw new Error("movie is not found.")
+            throw new Error("Movie is not found.")
         }
 
         const movieExistsName = await movieRepository.findOneBy({name});
 
         if(movieExistsName && name !== movie.name) {
-            throw new Error("movie is already.")
+            throw new Error("Movie is already.")
         }
 
         movie.name = name;

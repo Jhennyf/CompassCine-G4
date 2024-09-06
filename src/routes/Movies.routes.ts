@@ -1,30 +1,30 @@
 import express from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
-import { MovieController } from './../api/controllers/MovieController';
+import MovieController from './../api/controllers/MovieController';
 
-const router = express.Router();
+const movieRoutes = express.Router();
 const movieController = new MovieController();
 
 
-// Lista todos os filmes
-router.get(
+// List all Movies
+movieRoutes.get(
     "/movies",
-    movieController.getAll    
+    movieController.list  
 );
 
-// Buscar filme
-router.get(
+// Search a movie
+movieRoutes.get(
     "/movies/:id", 
     celebrate({
         [Segments.PARAMS]: {
             id: Joi.string().guid().required(),
         },
     }),
-    movieController.getById
+    movieController.show
 );
 
-// Cadastrar filme
-router.post(
+// Create a Movie
+movieRoutes.post(
   "/movies",
   celebrate({
     [Segments.BODY]: {
@@ -35,11 +35,11 @@ router.post(
       release_date: Joi.date().required(),
     },
   }),
-    movieController.post
+    movieController.create
 );
 
-// Atualizar filme
-router.put( 
+// Update a Movie
+movieRoutes.put( 
   "/movies/:id",
   celebrate({
     [Segments.BODY]: {
@@ -53,11 +53,11 @@ router.put(
       id: Joi.number().integer().required(),
     },
   }),
-    movieController.put
+    movieController.update
 );
 
-// Deletar filme
-router.delete(
+// Delete a Movie
+movieRoutes.delete(
   "/movies/:id",
   celebrate({
     [Segments.PARAMS]: {
@@ -67,4 +67,4 @@ router.delete(
     movieController.delete
 );
 
-export default router;
+export default movieRoutes;

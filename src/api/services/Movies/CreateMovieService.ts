@@ -18,11 +18,11 @@ class CreateMovieService {
         });
 
         if (movieExists) {
-            throw new Error("Filme já cadastrado")
+            throw new Error("Movie already registered.")
         }
 
         if (description.length > 100) {
-            throw new Error("Caracteres superior a 100")
+            throw new Error("The description cannot exceed 100 characters.")
         }
 
         const movie = movieRepository.create({ name, description, actors, genre, release_date });
