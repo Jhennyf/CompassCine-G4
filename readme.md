@@ -396,6 +396,7 @@ Para este projeto foi determinado o uso de algumas tecnologias e padronização 
 
 
 </details>
+
 ### Principais Tecnologias
 
 [![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/docs/)
