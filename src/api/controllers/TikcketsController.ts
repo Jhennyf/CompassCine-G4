@@ -25,7 +25,7 @@ export class TicketController {
     }
 
     async post(req: Request, res: Response) {
-        const newTicket = this.ticketRepository.post(req.body);
+        const newTicket = this.ticketRepository.create(req.body);
         await this.ticketRepository.save(newTicket);
         return res.status(201).json(newTicket);
     }

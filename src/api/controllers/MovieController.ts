@@ -22,6 +22,7 @@ export default class MovieController {
 
         return res.json(movie)
     }
+
     // List All Movies Controller
     public async list(req: Request, res: Response): Promise <Response> {
         const listMovieService = new ListMovieService();
@@ -30,16 +31,16 @@ export default class MovieController {
 
         return res.json(movie);
     }
+
     // Show Movie Controller
     public async show(req: Request, res: Response): Promise <Response> {
         const id = Number(req.params.id);
 
         const showMovieService = new ShowMoviceService();
-
         const movie = await showMovieService.execute({ id });
-
         return res.json(movie);
     }
+
     // Update Movie Controller
     public async update(req: Request, res: Response): Promise <Response> {
         const {name, description, actors, genre, release_date } = req.body;
@@ -50,6 +51,7 @@ export default class MovieController {
 
         return res.json(movie);
     }
+    
     // Delete Movie Controller
     public async delete(req: Request, res: Response): Promise<Response> {
         const id = Number(req.params.id);
