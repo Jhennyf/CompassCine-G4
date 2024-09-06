@@ -12,7 +12,7 @@ export const AppDataSource = new DataSource({
     type: "sqlite",
     database: "compasscine.db",
     synchronize: true,
-    logging: true,
+    logging: false,
     migrations: ["src/database/migrations/**.ts"],
     entities: [Movie, Session, Ticket],
     migrationsTableName: "_migrations",
@@ -21,4 +21,4 @@ export const AppDataSource = new DataSource({
 
 AppDataSource.initialize()
     .then(() => {})
-    .catch((error) => console.log(error));
+    .catch((error) => {throw new Error(error)});

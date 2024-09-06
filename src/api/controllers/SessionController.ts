@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "@database";
+import { AppDataSource } from "../../database/index";
 import { Session } from "@database/entities/Session";
 
 
@@ -15,30 +15,30 @@ export class SectionController {
 
     async getById(req: Request, res: Response) {
         const { id } = req.params;
-        const section = await this.sessionRepository.findOne({ where: { id: parseInt(id) }, relations: ["movie"] });
-        if (section) {
-            return res.json(section);
+        const sessions = await this.sessionRepository.findOne({ where: { id: parseInt(id) }, relations: ["movie"] });
+        if (sessions) {
+            return res.json(sessions);
         }
-        return res.status(404).json({ message: "seção não encontrada" });
+        return res.status(404).json({ message: "session not found." });
     }
     async post(req: Request, res: Response) {
-        const newSection = this.sessionRepository.post(req.body);
-        await this.sessionRepository.save(newSection);
-        return res.status(201).json(newSection);
+        const newSession = this.sessionRepository.create(req.body);
+        await this.sessionRepository.save(newSession);
+        return res.status(201).json(newSession);
     }
 
     async put(req: Request, res: Response) {
         const { id } = req.params;
-        const section = await this.sessionRepository.findOneBy({
+        const sessions = await this.sessionRepository.findOneBy({
             id: parseInt(id),
         });
 
-        if (section) {
-            this.sessionRepository.merge(section, req.body);
-            const result = await this.sessionRepository.save(section);
+        if (sessions) {
+            this.sessionRepository.merge(sessions, req.body);
+            const result = await this.sessionRepository.save(sessions);
             return res.json(result);
         }
-        return res.status(404).json({ message: "Section not found" });
+        return res.status(404).json({ message: "session not found." });
     }
 
     async delete(req: Request, res: Response) {
@@ -47,6 +47,6 @@ export class SectionController {
         if (result.affected) {
             return res.status(204).send();
         }
-        return res.status(404).json({ message: "seção não encontrada" });
+        return res.status(404).json({ message: "session not fund." });
     }
 }

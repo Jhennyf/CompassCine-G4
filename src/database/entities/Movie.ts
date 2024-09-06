@@ -7,6 +7,7 @@ import {
     OneToMany,
 } from "typeorm";
 import { Session } from "./Session";
+import { Exclude } from "class-transformer";
 
 @Entity("movies")
 export class Movie {
@@ -19,8 +20,8 @@ export class Movie {
     @Column()
     description: string;
 
-    @Column()
-    actors: string;
+    @Column({type: "simple-array"})
+    actors: string[];
 
     @Column()
     genre: string;
@@ -29,9 +30,11 @@ export class Movie {
     release_date: string;
 
     @CreateDateColumn()
+    @Exclude()
     created_at: Date;
 
     @UpdateDateColumn()
+    @Exclude()
     updated_at: Date;
     //migation: time stamp with time zone
 
