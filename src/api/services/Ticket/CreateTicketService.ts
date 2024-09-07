@@ -44,6 +44,9 @@ class CreateTicketService {
 
         //confere o numero de cadeiras com a capacidade da sessão
         if (this.chairCount > sessionRepository.capacity) {
+        const [chairCount] = await ticketRepository.findAndCount(chair)
+
+        if(chairCount > sessionRepository.capacity){
             throw new Error("Sold out.");
         }
 
@@ -52,7 +55,7 @@ class CreateTicketService {
             where: { chair },
         });
 
-        if (chairExists) {
+        if (chairExists === true) {
             throw new Error("Occupied chair.");
         }
 
