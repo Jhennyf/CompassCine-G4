@@ -1,6 +1,6 @@
 import express from "express";
 import { celebrate, Joi, Segments } from "celebrate";
-import { TicketController } from "@api/controllers/TikcketsController";
+import { TicketController } from "../api/controllers/TikcketsController";
 
 const ticketRoutes = express.Router();
 const ticketController = new TicketController();
