@@ -40,6 +40,7 @@ export class Movie {
 
     @OneToMany(() => Session, (session) => session.movie, {
         cascade: true,
+        onDelete: 'CASCADE'
     })
     session: Session[];
 }
