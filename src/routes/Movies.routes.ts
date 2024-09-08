@@ -1,5 +1,10 @@
 import express from 'express';
-import { celebrate, Joi, Segments } from 'celebrate';
+import { celebrate, Segments } from 'celebrate';
+
+import BaseJoi, { Extension, Root } from 'joi';
+import joiDate from '@joi/date'
+const Joi = BaseJoi.extend(joiDate as unknown as Extension) as Root;
+
 import MovieController from './../api/controllers/MovieController';
 
 const movieRoutes = express.Router();
@@ -32,7 +37,7 @@ movieRoutes.post(
       description: Joi.string().required(),
       actors: Joi.array().min(1).required(),
       genre: Joi.string().required(),
-      release_date: Joi.date().required(),
+      release_date: Joi.date().format("DD/MM/YYYY HH:mm").required(),
     },
   }),
     movieController.create
@@ -47,7 +52,7 @@ movieRoutes.put(
       description: Joi.string().required(),
       actors: Joi.array().min(1).required(),
       genre: Joi.string().required(),
-      release_date: Joi.date().required(),
+      release_date: Joi.date().format("DD/MM/YYYY").required(),
     },
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
