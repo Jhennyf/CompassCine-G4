@@ -19,9 +19,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use('/api/movie', movieRouter)
-app.use('/api/ticket', ticketRoutes)
-app.use('/api/session', sessionRoutes)
+app.use('/api', movieRouter)
+app.use('/api', ticketRoutes)
+app.use('/api', sessionRoutes);
 app.use('/api/swagger', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation))
 
 app.use(errors())
@@ -42,6 +42,8 @@ app.use(
     },
 );
 
-app.listen(process.env.PORT_SERVER, () => {
-    console.log(`[🤖] API: COMPASSCINE - ONLINE - PORTA: ${process.env.PORT_SERVER}`)
+
+const PORT = process.env.PORT_SERVER || 3000;
+app.listen(PORT, () => {
+    console.log(`[🤖] API: COMPASSCINE - ONLINE - PORTA: ${PORT}`);
 });
