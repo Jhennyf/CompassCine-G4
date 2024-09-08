@@ -1,6 +1,6 @@
 import Ticket from "../../../database/entities/Ticket";
 import { AppDataSource } from "../../../database/";
-import Session from "@database/entities/Session";
+import Session from "../../../database/entities/Session";
 
 interface IRequest {
     value: number;
@@ -17,18 +17,22 @@ class CreateTicketService {
         const ticketRepository = AppDataSource.getRepository(Ticket);
         const sessionRepository = AppDataSource.getRepository(Session);
 
+        //valida a sessão
         const sessionMovie = await sessionRepository.findOne({
-            where: { capacity: session_id },
+            where: { id: session_id },
         });
 
         if (!sessionMovie) {
             throw new Error("Sessão nao existe.");
         }
 
+        //conta o numero de tickets na sessão
         const [tickets, ticketCount] = await ticketRepository.findAndCount({
             where: { session: { id: session_id } },
         });
+        console.log(ticketCount);
 
+        //valida se o número de vendas nao excedeu a capacidade
         if (ticketCount > sessionMovie.capacity) {
             throw new Error("Sold out.");
         }
@@ -42,7 +46,7 @@ class CreateTicketService {
             throw new Error("Occupied chair.");
         }
 
-        const ticket = ticketRepository.create({ value, chair });
+        const ticket = ticketRepository.create({ value, chair, session_id });
         await ticketRepository.save(ticket);
 
         return ticket;

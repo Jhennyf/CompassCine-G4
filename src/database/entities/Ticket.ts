@@ -5,6 +5,7 @@ import {
     ManyToOne,
     CreateDateColumn,
     UpdateDateColumn,
+    JoinColumn,
 } from "typeorm";
 import { Session } from "./Session";
 
@@ -26,6 +27,7 @@ export class Ticket {
     updated_at: Date;
 
     @ManyToOne(() => Session, (session) => session.ticket)
+    @JoinColumn({ name: "session_id" })
     session: Session;
 }
 
