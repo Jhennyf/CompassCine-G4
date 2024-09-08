@@ -21,16 +21,16 @@ export default class MovieController {
             release_date,
         });
 
-        return res.json(instanceToInstance(movie));
+        return res.status(201).json(instanceToInstance(movie));
     }
 
-    // List All Movies Controller
-    public async list(req: Request, res: Response): Promise<Response> {
+     // List All Movies Controller
+     public async list(req: Request, res: Response): Promise<Response> {
         const listMovieService = new ListMovieService();
 
         const movie = await listMovieService.execute();
 
-        return res.json(movie);
+        return res.status(200).json(instanceToInstance(movie));
     }
 
     // Show Movie Controller
@@ -40,7 +40,7 @@ export default class MovieController {
         const showMovieService = new ShowMoviceService();
         const movie = await showMovieService.execute({ id });
 
-        return res.json(instanceToInstance(movie));
+        return res.status(200).json(instanceToInstance(movie));
     }
 
     // Update Movie Controller
@@ -58,7 +58,7 @@ export default class MovieController {
             release_date,
         });
 
-        return res.json(instanceToInstance(movie));
+        return res.status(201).json(instanceToInstance(movie));
     }
     
     // Delete Movie Controller

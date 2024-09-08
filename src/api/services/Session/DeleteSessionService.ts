@@ -1,20 +1,23 @@
 import Session from "../../../database/entities/Session";
-import { AppDataSource } from "../../../database/";
+import { AppDataSource } from "../../../database";
+import AppError from "../../middlewares/AppError";
 
-interface IParams {
+interface IRequest {
     id: number;
+    movie_id: number;
 }
 
 class DeleteSessionService {
-    public async execute({ id }: IParams): Promise<void> {
+    public async execute({ id, movie_id }: IRequest): Promise<void> {
         const sessionRepository = AppDataSource.getRepository(Session);
-    
+
         const session = await sessionRepository.findOne({
-            where: { id }
+            where: { id, movie: { id: movie_id } },
+            relations: ["movie"]
         });
 
         if (!session) {
-            throw new Error("Session not found.");
+            throw new AppError("Session or Movie not found.", 404);
         }
 
         await sessionRepository.remove(session);

@@ -12,10 +12,11 @@ class ShowMoviceService {
     
         const movie = await movieRepository.findOne({
             where: {id},
+            relations: ["session"]
         });
 
         if(!movie) {
-            throw new AppError("Movie not found.")
+            throw new AppError("Movie not found.", 404)
         }
     
     

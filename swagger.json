@@ -104,8 +104,8 @@
             }
           },
           "responses": {
-            "200": {
-              "description": "OK",
+            "201": {
+              "description": "Created",
               "content": {
                 "application/json": {
                   "schema": {
@@ -127,6 +127,169 @@
             },
             "default": {
               "description": "Unexpected error"
+            }
+          }
+        }
+      },
+      "/movies/{id}": {
+        "get": {
+          "tags": [
+            "movies"
+          ],
+          "summary": "Exibe as informações de um movie.",
+          "description": "Este endpoint faz a exibição das informações de um determinado movie.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "O id do tutor passado via parametro URI",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                },
+                "application/xml": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Movie not found."
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "default": {
+              "description": "Unexpected error."
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "movies"
+          ],
+          "summary": "Atualiza informaçõs de movie.",
+          "description": "Este endpoint faz a atualização das informações de um movie específico.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "O id do tutor passado via parametro URI",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Request body para criar um novo tutor.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Hostis"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Um filme sobre nativos americanos em período de conflito com colonos."
+                    },
+                    "actors": {
+                      "type": "array",
+                      "items": {},
+                      "example": [
+                        "Christian Bale",
+                        "Wes Studi",
+                        "Adam Beach"
+                      ]
+                    },
+                    "genre": {
+                      "type": "string",
+                      "example": "Ação"
+                    },
+                    "release_date": {
+                      "type": "string",
+                      "format": "datetime",
+                      "example": "20/03/2017"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                },
+                "application/xml": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "The film is already registered | The description cannot exceed 100 characters."
+            },
+            "404": {
+              "description": "Movie not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "default": {
+              "description": "Unexpected error."
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "movies"
+          ],
+          "summary": "Deleta um movie.",
+          "description": "Este endpoint faz a remoção de um movie específico, cadastrado no sistema.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "O id do tutor passado via parametro URI",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No content"
+            },
+            "404": {
+              "description": "Movie not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "default": {
+              "description": "Unexpected error."
             }
           }
         }

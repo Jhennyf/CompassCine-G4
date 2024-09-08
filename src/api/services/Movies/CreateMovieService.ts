@@ -19,15 +19,16 @@ class CreateMovieService {
         });
 
         if (movieExists) {
-            throw new AppError("Movie already registered.")
+            throw new AppError("Movie already registered.", 404)
         }
 
         if (description.length > 100) {
-            throw new AppError("The description cannot exceed 100 characters.")
+            throw new AppError("The description cannot exceed 100 characters.", 400)
         }
 
         const movie = movieRepository.create({ name, description, actors, genre, release_date });
         await movieRepository.save(movie)
+
         return movie;
     }
 }

@@ -25,16 +25,16 @@ class UpdateMovieService {
 
         const movie = await movieRepository.findOneBy({ id });
         if (!movie) {
-            throw new AppError("Movie is not found.");
+            throw new AppError("Movie is not found.", 404);
         }
 
         const movieExistsName = await movieRepository.findOneBy({ name });
         if (movieExistsName && name !== movie.name) {
-            throw new AppError("Movie is already.");
+            throw new AppError("The film is already registered", 400);
         }
 
         if (description.length > 100) {
-            throw new AppError("The description cannot exceed 100 characters.");
+            throw new AppError("The description cannot exceed 100 characters.", 400);
         }
 
         movie.name = name;

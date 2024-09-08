@@ -6,6 +6,7 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
 } from "typeorm";
+import { Exclude } from "class-transformer";
 import { Session } from "./Session";
 
 @Entity("tickets")
@@ -20,9 +21,11 @@ export class Ticket {
     chair: string;
 
     @CreateDateColumn()
+    @Exclude()
     created_at: Date;
 
     @UpdateDateColumn()
+    @Exclude()
     updated_at: Date;
 
     @ManyToOne(() => Session, (session) => session.ticket)

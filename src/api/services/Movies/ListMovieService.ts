@@ -8,7 +8,7 @@ class ListMovieService {
         const movie = await movieRepository.find();
         
         if(movie.length === 0) {
-            throw new AppError("There are no films registered.")
+            throw new AppError("There are no films registered.", 404)
         }
 
         return movie;
