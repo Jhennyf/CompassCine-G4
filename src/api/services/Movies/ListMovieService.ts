@@ -6,9 +6,9 @@ class ListMovieService {
     public async execute(): Promise<Movie[]> {
         const movieRepository = AppDataSource.getRepository(Movie);
         const movie = await movieRepository.find();
-        
-        if(movie.length === 0) {
-            throw new AppError("There are no films registered.")
+
+        if (movie.length === 0) {
+            throw new AppError("There are no films registered.");
         }
 
         return movie;
