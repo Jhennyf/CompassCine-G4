@@ -1,3 +1,5 @@
+import moment from "moment";
+
 import Movie from "../../../database/entities/Movie";
 import { AppDataSource } from "../../../database/";
 import AppError from "../../middlewares/AppError";
@@ -19,7 +21,7 @@ class CreateMovieService {
         });
 
         if (movieExists) {
-            throw new AppError("Movie already registered.", 404)
+            throw new AppError("Movie already registered.", 400)
         }
 
         if (description.length > 100) {
@@ -28,6 +30,8 @@ class CreateMovieService {
 
         const movie = movieRepository.create({ name, description, actors, genre, release_date });
         await movieRepository.save(movie)
+
+        movie.release_date = moment(movie.release_date).format("DD/MM/YYYY HH:mm")
 
         return movie;
     }

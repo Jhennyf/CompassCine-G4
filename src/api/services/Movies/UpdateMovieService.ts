@@ -1,3 +1,4 @@
+import moment from "moment";
 
 import Movie from "../../../database/entities/Movie";
 import { AppDataSource } from "../../../database/";
@@ -44,6 +45,8 @@ class UpdateMovieService {
         movie.release_date = release_date;
 
         await movieRepository.save(movie);
+
+        movie.release_date = moment(movie.release_date).format("DD/MM/YYYY HH:mm")
 
         return movie;
     }

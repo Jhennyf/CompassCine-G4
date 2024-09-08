@@ -1,3 +1,5 @@
+import moment from "moment";
+
 import Movie from "../../../database/entities/Movie";
 import { AppDataSource } from "../../../database/";
 import AppError from "../../middlewares/AppError";
@@ -19,7 +21,8 @@ class ShowMoviceService {
             throw new AppError("Movie not found.", 404)
         }
     
-    
+        movie.release_date = moment(movie.release_date).format("DD/MM/YYYY HH:mm")
+        
         return movie;
     }
 }
