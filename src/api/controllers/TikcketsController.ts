@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../../database/index";
-import Ticket from "@database/entities/Ticket";
-
+import { instanceToInstance } from "class-transformer";
 import CreateTicketService from "../../api/services/Ticket/CreateTicketService";
 import ShowTicketService from "../../api/services/Ticket/ShowTicketService";
 import UpdateTicketService from "../../api/services/Ticket/UpdateTicketService";
@@ -15,10 +13,9 @@ export class TicketController {
                 ...req.body,
                 session_id: parseInt(req.params.session_id),
             });
-            return res.status(201).json(newTicket);
+            return res.status(201).json(instanceToInstance(newTicket));
         } catch (error) {
-            console.log(error);
-            return res.status(400).json(error);
+            return res.json(error);
         }
     }
 
@@ -43,7 +40,7 @@ export class TicketController {
                 ...req.body,
             });
 
-            return res.json(updatedTicket);
+            return res.json(instanceToInstance(updatedTicket));
         } catch (error) {
             return res.status(400).json(error);
         }
