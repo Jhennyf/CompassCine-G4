@@ -20,8 +20,8 @@
         "description": "endpints das sessões."
       },
       {
-        "name": "pet",
-        "description": "Operações sobre pet"
+        "name": "tickets",
+        "description": "Operações sobre ingressos."
       }
     ],
     "paths": {
@@ -362,6 +362,134 @@
             },
             "404": {
               "description": "Movie not found."
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "default": {
+              "description": "Unexpected error."
+            }
+          }
+        }
+      },
+      "/movies/{movie_id}/sessions/{id}": {
+        "put": {
+          "tags": [
+            "sessions"
+          ],
+          "summary": "Cria uma nova sessão",
+          "description": "Cria uma session atribuindo a um movie já cadastrado.",
+          "parameters": [
+            {
+              "name": "movie_id",
+              "in": "path",
+              "description": "O id do movie ao qual deseja criar a sessão",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "O id da sessão ao qual deseja atualizar",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Request body para criar um novo tutor.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "room": {
+                      "type": "string",
+                      "example": "Sala B04"
+                    },
+                    "capacity": {
+                      "type": "integer",
+                      "example": 100
+                    },
+                    "day": {
+                      "type": "string",
+                      "example": "15/02/2024"
+                    },
+                    "time": {
+                      "type": "string",
+                      "format": "datetime",
+                      "example": "14:00:00"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Session"
+                  }
+                },
+                "application/xml": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Session"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Session already registere"
+            },
+            "404": {
+              "description": "Movie not found | Session not found."
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "default": {
+              "description": "Unexpected error."
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "sessions"
+          ],
+          "summary": "Deleta uma sessão",
+          "description": "Insere via metodo POST um novo tutor ao servidor.",
+          "parameters": [
+            {
+              "name": "movie_id",
+              "in": "path",
+              "description": "O id do movie ao qual deseja criar a sessão",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "O id da sessão ao qual deseja atualizar",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No content"
+            },
+            "404": {
+              "description": "Session or movie not found."
             },
             "500": {
               "description": "Internal server error"
