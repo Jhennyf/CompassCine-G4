@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-
+import { instanceToInstance, instanceToPlain } from "class-transformer";
 import CreateSessionService from "../../api/services/Session/CreateSessionService";
 import ShowSessionService from "../../api/services/Session/ShowSessionService";
 import UpdateSessionService from "../../api/services/Session/UpdateSessionService";
@@ -14,7 +14,7 @@ export class SessionController {
                 ...req.body,
                 movie_id: parseInt(req.params.movie_id),
             });
-            return res.status(201).json(newSession);
+            return res.status(201).json(instanceToInstance(newSession));
         } catch (error) {
             return res.status(400).json(error);
         }
@@ -25,7 +25,7 @@ export class SessionController {
             const { movie_id } = req.params;
             const sessions = new ListSessionService();
             const listSession = await sessions.execute(parseInt(movie_id));
-            return res.json(listSession);
+            return res.json(instanceToInstance(listSession));
         } catch (error) {
             return res.status(400).json(error);
         }
@@ -39,7 +39,7 @@ export class SessionController {
                 parseInt(id),
                 parseInt(movie_id),
             );
-            return res.json(session);
+            return res.json(instanceToPlain(session));
         } catch (error) {
             return res.status(404).json({ message: "Session not found." });
         }
@@ -55,7 +55,7 @@ export class SessionController {
                 ...req.body,
             });
 
-            return res.json(updatedSession);
+            return res.json(instanceToInstance(updatedSession));
         } catch (error) {
             return res.status(400).json(error);
         }

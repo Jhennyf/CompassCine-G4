@@ -8,12 +8,14 @@ import {
     OneToMany,
     JoinColumn,
 } from "typeorm";
+import { Exclude, Expose } from "class-transformer";
 import { Movie } from "./Movie";
 import { Ticket } from "./Ticket";
 
 @Entity("sessions")
 export class Session {
     @PrimaryGeneratedColumn()
+    @Expose()
     id: number;
 
     @Column()
@@ -29,18 +31,23 @@ export class Session {
     time: string;
 
     @CreateDateColumn()
+    @Exclude()
     created_at: Date;
 
     @UpdateDateColumn()
+    @Exclude()
     updated_at: Date;
     //migation: time stamp with time zone
 
-    @ManyToOne(() => Movie, (movie) => movie.session)
-    @JoinColumn({ name: 'movie_id' }) 
+    @ManyToOne(() => Movie, (movie) => movie.session, {
+        onDelete: "CASCADE",
+    })
+    @JoinColumn({ name: "movie_id" })
     movie: Movie;
 
     @OneToMany(() => Ticket, (ticket) => ticket.session, {
         cascade: true,
+        onDelete: "CASCADE",
     })
     ticket: Ticket[];
 }

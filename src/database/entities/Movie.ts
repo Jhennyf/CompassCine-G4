@@ -20,7 +20,7 @@ export class Movie {
     @Column()
     description: string;
 
-    @Column({type: "simple-array"})
+    @Column({ type: "simple-array" })
     actors: string[];
 
     @Column()
@@ -40,6 +40,7 @@ export class Movie {
 
     @OneToMany(() => Session, (session) => session.movie, {
         cascade: true,
+        onDelete: "CASCADE",
     })
     session: Session[];
 }
