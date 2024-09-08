@@ -1,0 +1,21 @@
+import Session from "../../../database/entities/Session";
+import { AppDataSource } from "../../../database/";
+import AppError from "../../middlewares/AppError";
+
+class ListSessionService {
+    public async execute(movie_id: number): Promise<Session[]> {
+        const sessionRepository = AppDataSource.getRepository(Session);
+        const sessions = await sessionRepository.find({
+            where: { movie: { id: movie_id } },
+            relations: ["movie"]
+        });
+        
+        if (sessions.length === 0) {
+            throw new AppError("There are no sessions registered for this movie.");
+        }
+
+        return sessions;
+    }
+}
+
+export default ListSessionService;

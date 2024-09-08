@@ -1,5 +1,7 @@
 import Session from "../../../database/entities/Session";
 import { AppDataSource } from "../../../database";
+import Movie from "../../../database/entities/Movie";
+
 
 interface IRequest {
     id: number;
@@ -7,12 +9,14 @@ interface IRequest {
     capacity: number;
     day: Date;
     time: string;
+    movie_id: number;
 }
 
 class UpdateSessionService {
-    public async execute({ id, room, capacity, day, time }: IRequest): Promise<Session | null> {
+    public async execute({ id, room, capacity, day, time, movie_id }: IRequest): Promise<Session | null> {
         const sessionRepository = AppDataSource.getRepository(Session);
-        
+        const movieRepository = AppDataSource.getRepository(Movie); 
+
         const session = await sessionRepository.findOneBy({ id });
         if (!session) {
             throw new Error("Session not found.");
@@ -26,10 +30,18 @@ class UpdateSessionService {
             throw new Error("Session already exists.");
         }
 
+        const movie = await movieRepository.findOne({ where: { id: movie_id } });
+
+        if (!movie) {
+            throw new Error("Movie not found.");
+        }
+
+
         session.room = room;
         session.capacity = capacity;
         session.day = day;
         session.time = time;
+        session.movie = movie;
 
         await sessionRepository.save(session);
     

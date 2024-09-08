@@ -6,6 +6,7 @@ import {
     UpdateDateColumn,
     ManyToOne,
     OneToMany,
+    JoinColumn,
 } from "typeorm";
 import { Movie } from "./Movie";
 import { Ticket } from "./Ticket";
@@ -35,6 +36,7 @@ export class Session {
     //migation: time stamp with time zone
 
     @ManyToOne(() => Movie, (movie) => movie.session)
+    @JoinColumn({ name: 'movie_id' }) 
     movie: Movie;
 
     @OneToMany(() => Ticket, (ticket) => ticket.session, {
