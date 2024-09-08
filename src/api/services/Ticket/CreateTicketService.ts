@@ -5,7 +5,6 @@ import Session from "@database/entities/Session";
 interface IRequest {
     value: number;
     chair: string;
-    movie_id: number;
     session_id: number;
 }
 
@@ -13,7 +12,6 @@ class CreateTicketService {
     public async execute({
         value,
         chair,
-        movie_id,
         session_id,
     }: IRequest): Promise<Ticket> {
         const ticketRepository = AppDataSource.getRepository(Ticket);

@@ -60,7 +60,7 @@ export default class MovieController {
 
         return res.json(instanceToInstance(movie));
     }
-    
+
     // Delete Movie Controller
     public async delete(req: Request, res: Response): Promise<Response> {
         const id = Number(req.params.id);
