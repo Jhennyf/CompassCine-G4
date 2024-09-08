@@ -1,8 +1,9 @@
-import Ticket from "@database/entities/Ticket";
+import Ticket from "../../../database/entities/Ticket";
 import { AppDataSource } from "../../../database/";
 
 interface IParams {
     id: number;
+    session_id: number;
 }
 
 class DeleteTicketService {
@@ -10,7 +11,7 @@ class DeleteTicketService {
         const ticketRepository = AppDataSource.getRepository(Ticket);
 
         const ticket = await ticketRepository.findOne({
-            where: { id }
+            where: { id },
         });
 
         if (!ticket) {

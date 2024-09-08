@@ -1,54 +1,66 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../../database/index";
-import { Ticket } from "./../../database/entities/Ticket";
+import Ticket from "@database/entities/Ticket";
+
+import CreateTicketService from "../../api/services/Ticket/CreateTicketService";
+import ShowTicketService from "../../api/services/Ticket/ShowTicketService";
+import UpdateTicketService from "../../api/services/Ticket/UpdateTicketService";
+import DeleteTicketService from "../../api/services/Ticket/DeleteTicketService";
 
 export class TicketController {
-    private ticketRepository = AppDataSource.getRepository(Ticket);
-
-    async getAll(req: Request, res: Response) {
-        const tickets = await this.ticketRepository.find({
-            relations: ["section"],
-        });
-        return res.json(tickets);
-    }
-
-    async getId(req: Request, res: Response) {
-        const { id } = req.params;
-        const ticket = await this.ticketRepository.findOne({
-            where: { id: parseInt(id) },
-            relations: ["section"],
-        });
-        if (ticket) {
-            return res.json(ticket);
-        }
-        return res.status(404).json({ message: "ticket not found" });
-    }
-
     async post(req: Request, res: Response) {
-        const newTicket = this.ticketRepository.create(req.body);
-        await this.ticketRepository.save(newTicket);
-        return res.status(201).json(newTicket);
+        try {
+            const create = new CreateTicketService();
+            const newTicket = await create.execute({
+                ...req.body,
+                session_id: parseInt(req.params.session_id),
+            });
+            return res.status(201).json(newTicket);
+        } catch (error) {
+            console.log(error);
+            return res.status(400).json(error);
+        }
+    }
+
+    async getById(req: Request, res: Response) {
+        try {
+            const { id } = req.params;
+            const show = new ShowTicketService();
+            const ticket = await show.getTicketById(parseInt(id));
+            return res.json(ticket);
+        } catch (error) {
+            return res.status(400).json(error);
+        }
     }
 
     async put(req: Request, res: Response) {
-        const { id } = req.params;
-        const ticket = await this.ticketRepository.findOneBy({
-            id: parseInt(id),
-        });
+        try {
+            const { id, session_id } = req.params;
+            const update = new UpdateTicketService();
+            const updatedTicket = await update.execute({
+                id: parseInt(id),
+                session_id: parseInt(session_id),
+                ...req.body,
+            });
 
-        if (ticket) {
-            this.ticketRepository.merge(ticket, req.body);
-            const result = await this.ticketRepository.save(ticket);
-            return res.json(result);
+            return res.json(updatedTicket);
+        } catch (error) {
+            return res.status(400).json(error);
         }
-        return res.status(404).json({ message: "ticket not found" });
     }
 
     async delete(req: Request, res: Response) {
-        const { id } = req.params;
-        const result = await this.ticketRepository.delete(id);
-        return result.affected
-            ? res.status(204).send()
-            : res.status(404).json({ message: "ticket not found" });
+        try {
+            const { id, session_id } = req.params;
+            const deleteService = new DeleteTicketService();
+            await deleteService.execute({
+                id: parseInt(id),
+                session_id: parseInt(session_id),
+            });
+
+            return res.status(204).send();
+        } catch (error) {
+            return res.status(400).json(error);
+        }
     }
 }
