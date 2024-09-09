@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { instanceToInstance } from "class-transformer";
-import CreateTicketService from "../../api/services/Ticket/CreateTicketService";
-import ShowTicketService from "../../api/services/Ticket/ShowTicketService";
-import UpdateTicketService from "../../api/services/Ticket/UpdateTicketService";
-import DeleteTicketService from "../../api/services/Ticket/DeleteTicketService";
+
+import CreateTicketService from "@api/services/Ticket/CreateTicketService";
+import ShowTicketService from "@api/services/Ticket/ShowTicketService";
+import UpdateTicketService from "@api/services/Ticket/UpdateTicketService";
+import DeleteTicketService from "@api/services/Ticket/DeleteTicketService";
 
 export class TicketController {
     async post(req: Request, res: Response) {

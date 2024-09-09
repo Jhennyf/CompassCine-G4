@@ -1,9 +1,8 @@
 import moment from "moment";
-
-import Session from "../../../database/entities/Session";
-import { AppDataSource } from "../../../database/";
-import Movie from "../../../database/entities/Movie";
-import AppError from "../../middlewares/AppError";
+import Session from "@database/entities/Session";
+import Movie from "@database/entities/Movie";
+import { AppDataSource } from "@database/index";
+import AppError from "@api/middlewares/AppError";
 
 interface IRequest {
     room: string;
@@ -18,6 +17,12 @@ class CreateSessionService {
         const sessionRepository = AppDataSource.getRepository(Session);
         const movieRepository = AppDataSource.getRepository(Movie); 
 
+        const movie = await movieRepository.findOne({ where: { id: movie_id } });
+
+        if (!movie) {
+            throw new AppError("Movie not found.", 404);
+        }
+
         const sessionExists = await sessionRepository.findOne({
             where: { day, time, room }
         });
@@ -26,11 +31,7 @@ class CreateSessionService {
             throw new AppError("Session already registered.", 400);
         }
 
-        const movie = await movieRepository.findOne({ where: { id: movie_id } });
-
-        if (!movie) {
-            throw new AppError("Movie not found.", 404);
-        }
+        
 
         const session = sessionRepository.create({ room, capacity, day, time, movie });
         await sessionRepository.save(session);

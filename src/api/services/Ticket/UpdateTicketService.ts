@@ -1,9 +1,9 @@
-import Ticket from "../../../database/entities/Ticket";
-import Session from "../../../database/entities/Session";
-import Movie from "../../../database/entities/Movie";
+import Ticket from "@database/entities/Ticket";
+import Session from "@database/entities/Session";
+import Movie from "@database/entities/Movie";
 
-import AppError from "../../middlewares/AppError";
-import { AppDataSource } from "../../../database/";
+import AppError from "@api/middlewares/AppError";
+import { AppDataSource } from "@database/index";
 
 interface IRequest {
     id: number;

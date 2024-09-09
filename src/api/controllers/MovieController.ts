@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { instanceToInstance } from "class-transformer";
 
-import CreateMovieService from "../services/Movies/CreateMovieService";
-import ListMovieService from "../services/Movies/ListMovieService";
-import ShowMoviceService from "../services/Movies/ShowMovieService";
-import UpdateMovieService from "../services/Movies/UpdateMovieService";
-import DeleteMovieService from "../services/Movies/DeleteMovieService";
+import CreateMovieService from "@api/services/Movies/CreateMovieService";
+import ListMovieService from "@api/services/Movies/ListMovieService";
+import ShowMoviceService from "@api/services/Movies/ShowMovieService";
+import UpdateMovieService from "@api/services/Movies/UpdateMovieService";
+import DeleteMovieService from "@api/services/Movies/DeleteMovieService";
 
 export default class MovieController {
     // Creation Movie Controller

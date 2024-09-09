@@ -1,7 +1,7 @@
-import Ticket from "../../../database/entities/Ticket";
-import { AppDataSource } from "../../../database/";
-import Session from "../../../database/entities/Session";
-import AppError from "../../middlewares/AppError";
+import Ticket from "@database/entities/Ticket";
+import Session from "@database/entities/Session";
+import { AppDataSource } from "@database/index";
+import AppError from "@api/middlewares/AppError";
 
 interface IRequest {
     value: number;
@@ -46,7 +46,7 @@ class CreateTicketService {
         });
 
         if (chairExists) {
-            throw new AppError("Occupied chair.", 400);
+            throw new AppError(`Occupied chair: ${chair}.`, 400);
         }
 
         const ticket = ticketRepository.create({

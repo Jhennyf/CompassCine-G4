@@ -1,10 +1,10 @@
 import moment from "moment";
 
-import Movie from "../../../database/entities/Movie";
-import Session from "../../../database/entities/Session";
+import Movie from "@database/entities/Movie";
+import Session from "@database/entities/Session";
 
-import { AppDataSource } from "../../../database/";
-import AppError from "../../middlewares/AppError";
+import { AppDataSource } from "@database/index";
+import AppError from "@api/middlewares/AppError";
 
 class ListMovieService {
     public async execute(): Promise<Movie[] | Session[]> {
