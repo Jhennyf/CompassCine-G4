@@ -419,6 +419,7 @@ A execução do projeto necessita da instalação das dependências:
 ```bash
   npm install my-project
   cd my-project
+  npm run dev ou yarn dev
 ```
 
 Este projeto foi desenvolvido usando as seguintes ferramentas e suas consecutivas versões.
