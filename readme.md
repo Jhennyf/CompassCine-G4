@@ -443,7 +443,7 @@ As versões utilizadas neste projeto são:
 <table>
   <tr>
     <td align="center">
-      <a href="https://github.com/iuricode">
+      <a href="https://github.com/Santxszz">
         <img src="https://avatars3.githubusercontent.com/u/35975751" width="100px;" alt="Foto do Iuri Silva no GitHub"/><br>
         <sub>
           <b>Erek C. Santos</b>
@@ -451,7 +451,7 @@ As versões utilizadas neste projeto são:
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/iuricode">
+      <a href="https://github.com/eufrezende">
         <img src="https://avatars3.githubusercontent.com/u/106535940" width="100px;" alt="Foto do Iuri Silva no GitHub"/><br>
         <sub>
           <b>Felipe Ribeiro</b>
@@ -459,15 +459,15 @@ As versões utilizadas neste projeto são:
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/iuricode">
+      <a href="https://github.com/Jhennyf">
         <img src="https://avatars3.githubusercontent.com/u/102433765" width="100px;" alt="Foto do Iuri Silva no GitHub"/><br>
         <sub>
-          <b>Jhennyf Lima</b>
+          <b>Jhennyf</b>
         </sub>
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/iuricode">
+      <a href="https://github.com/hugosymon">
         <img src="https://avatars3.githubusercontent.com/u/130326199" width="100px;" alt="Foto do Iuri Silva no GitHub"/><br>
         <sub>
           <b>Hugo Symon</b>
