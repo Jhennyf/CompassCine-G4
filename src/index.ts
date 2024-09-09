@@ -10,8 +10,13 @@ import "../src/database/index";
 import AppError from "./api/middlewares/AppError";
 
 import movieRouter from "./routes/Movies.routes";
+<<<<<<< HEAD
 import ticketRoutes from "./routes/Tickets.routes";
 import sessionRoutes from "./routes/Session.routes";
+=======
+import sessionRoutes from "./routes/Session.routes";
+import ticketRoutes from "./routes/Tickets.routes";
+>>>>>>> 49be6567f712a184dde029a37ef1a7bcbc873ea6
 
 const app = express();
 
@@ -20,8 +25,13 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use('/api', movieRouter)
+<<<<<<< HEAD
 app.use('/api', ticketRoutes)
 app.use('/api', sessionRoutes);
+=======
+app.use('/api', sessionRoutes)
+app.use('/api', ticketRoutes)
+>>>>>>> 49be6567f712a184dde029a37ef1a7bcbc873ea6
 app.use('/api/swagger', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation))
 
 app.use(errors())

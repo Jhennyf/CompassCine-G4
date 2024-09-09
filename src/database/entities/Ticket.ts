@@ -5,8 +5,13 @@ import {
     ManyToOne,
     CreateDateColumn,
     UpdateDateColumn,
+<<<<<<< HEAD
     JoinColumn,
+=======
+    JoinColumn
+>>>>>>> 49be6567f712a184dde029a37ef1a7bcbc873ea6
 } from "typeorm";
+import { Exclude } from "class-transformer";
 import { Session } from "./Session";
 import { Exclude } from "class-transformer";
 
@@ -21,6 +26,9 @@ export class Ticket {
     @Column()
     chair: string;
 
+    @Column({ name: "sessionId" })
+    session_id: number;
+
     @CreateDateColumn()
     @Exclude()
     created_at: Date;
@@ -30,9 +38,17 @@ export class Ticket {
     updated_at: Date;
 
     @ManyToOne(() => Session, (session) => session.ticket, {
+<<<<<<< HEAD
         onDelete: "CASCADE",
     })
     @JoinColumn({ name: "session_id" })
+=======
+        onDelete: 'CASCADE',
+    })
+    @JoinColumn({ name:
+        "sessionId"
+        })
+>>>>>>> 49be6567f712a184dde029a37ef1a7bcbc873ea6
     session: Session;
 }
 

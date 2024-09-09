@@ -15,6 +15,10 @@ export class TicketController {
             });
             return res.status(201).json(instanceToInstance(newTicket));
         } catch (error) {
+<<<<<<< HEAD
+=======
+            console.log(error)
+>>>>>>> 49be6567f712a184dde029a37ef1a7bcbc873ea6
             return res.json(error);
         }
     }
@@ -32,11 +36,19 @@ export class TicketController {
 
     async put(req: Request, res: Response) {
         try {
+<<<<<<< HEAD
             const { id, session_id } = req.params;
+=======
+            const { id, session_id, movie_id } = req.params;
+>>>>>>> 49be6567f712a184dde029a37ef1a7bcbc873ea6
             const update = new UpdateTicketService();
             const updatedTicket = await update.execute({
                 id: parseInt(id),
                 session_id: parseInt(session_id),
+<<<<<<< HEAD
+=======
+                movie_id: parseInt(movie_id),
+>>>>>>> 49be6567f712a184dde029a37ef1a7bcbc873ea6
                 ...req.body,
             });
 

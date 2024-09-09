@@ -1,5 +1,9 @@
 import Session from "../../../database/entities/Session";
 import { AppDataSource } from "../../../database";
+<<<<<<< HEAD
+=======
+import AppError from "../../middlewares/AppError";
+>>>>>>> 49be6567f712a184dde029a37ef1a7bcbc873ea6
 
 interface IRequest {
     id: number;
@@ -16,7 +20,7 @@ class DeleteSessionService {
         });
 
         if (!session) {
-            throw new Error("Session not found.");
+            throw new AppError("Session or Movie not found.", 404);
         }
 
         await sessionRepository.remove(session);

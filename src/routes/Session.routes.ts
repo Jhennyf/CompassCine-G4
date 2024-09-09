@@ -1,6 +1,15 @@
 import express from "express";
+<<<<<<< HEAD
 import { celebrate, Joi, Segments } from "celebrate";
 import { SessionController } from "../api/controllers/SessionController";
+=======
+import { celebrate, Segments } from "celebrate";
+import { SessionController } from "../api/controllers/SessionController";
+
+import BaseJoi, { Extension, Root } from 'joi';
+import joiDate from '@joi/date'
+const Joi = BaseJoi.extend(joiDate as unknown as Extension) as Root;
+>>>>>>> 49be6567f712a184dde029a37ef1a7bcbc873ea6
 
 const sessionRoutes = express.Router();
 const sessionController = new SessionController();
@@ -31,7 +40,7 @@ sessionRoutes.post(
     [Segments.BODY]: {
       room: Joi.string().required(),
       capacity: Joi.number().integer().required(),
-      day: Joi.string().required(),
+      day: Joi.date().format("DD/MM/YYYY").required(),
       time: Joi.string().required(),
     },
   }),
@@ -45,7 +54,7 @@ sessionRoutes.put(
     [Segments.BODY]: {
       room: Joi.string().required(),
       capacity: Joi.number().integer().required(),
-      day: Joi.string().required(),
+      day: Joi.date().format("DD/MM/YYYY").required(),
       time: Joi.string().required(),
     },
     [Segments.PARAMS]: {

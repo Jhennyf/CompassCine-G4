@@ -1,5 +1,6 @@
 import Movie from "../../../database/entities/Movie";
 import { AppDataSource } from "../../../database/";
+import AppError from "../../middlewares/AppError";
 
 interface IParams {
     id: number;
@@ -8,13 +9,13 @@ interface IParams {
 class DeleteMovieService {
     public async execute({ id }: IParams): Promise<void> {
         const movieRepository = AppDataSource.getRepository(Movie);
-    
+
         const movie = await movieRepository.findOne({
             where: { id }
         });
 
-        if(!movie) {
-            throw new Error("Movie is not found.")
+        if (!movie) {
+            throw new AppError("Movie is not found.", 404)
         }
 
         await movieRepository.remove(movie);
