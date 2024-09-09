@@ -30,6 +30,9 @@ export class Session {
     @Column()
     time: string;
 
+    @Column({ name: "movie_id" })
+    movie_id: number;
+
     @CreateDateColumn()
     @Exclude()
     created_at: Date;

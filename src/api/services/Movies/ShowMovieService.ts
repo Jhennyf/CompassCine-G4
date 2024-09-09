@@ -6,6 +6,24 @@ interface IParams {
     id: number;
 }
 
+interface ISession {
+    id: number;
+    movie_id: number;
+    room: string;
+    capacity: number;
+    day: string;
+    time: string;
+}
+interface ITicket {
+    id: string;
+    quantity: number;
+}
+
+interface IRequest {
+    ticket: ITicket[];
+    movie: ISession[];
+}
+
 class ShowMoviceService {
     public async execute({ id }: IParams): Promise<Movie | null> {
         const movieRepository = AppDataSource.getRepository(Movie);

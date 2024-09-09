@@ -21,6 +21,9 @@ export class Ticket {
     @Column()
     chair: string;
 
+    @Column({ name: "session_id" })
+    session_id: number;
+
     @CreateDateColumn()
     @Exclude()
     created_at: Date;
