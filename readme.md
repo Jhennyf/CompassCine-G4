@@ -425,11 +425,17 @@ Este projeto foi desenvolvido usando as seguintes ferramentas e suas consecutiva
 As versões utilizadas neste projeto são:
 
 > VSCode v1.92.0
+
 > Sqlite v3.46.0
+
 > Postman v11.11.1
+
 > node v20.15.0
+
 > npm v10.7.0
+
 > Prettier v11.0.0
+
 > Eslint v3.0.10
 
 ### Equipe
