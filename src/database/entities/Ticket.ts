@@ -5,8 +5,10 @@ import {
     ManyToOne,
     CreateDateColumn,
     UpdateDateColumn,
+    JoinColumn,
 } from "typeorm";
 import { Session } from "./Session";
+import { Exclude } from "class-transformer";
 
 @Entity("tickets")
 export class Ticket {
@@ -20,12 +22,17 @@ export class Ticket {
     chair: string;
 
     @CreateDateColumn()
+    @Exclude()
     created_at: Date;
 
     @UpdateDateColumn()
+    @Exclude()
     updated_at: Date;
 
-    @ManyToOne(() => Session, (session) => session.ticket)
+    @ManyToOne(() => Session, (session) => session.ticket, {
+        onDelete: "CASCADE",
+    })
+    @JoinColumn({ name: "session_id" })
     session: Session;
 }
 

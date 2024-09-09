@@ -9,16 +9,16 @@ interface IParams {
 class ShowMoviceService {
     public async execute({ id }: IParams): Promise<Movie | null> {
         const movieRepository = AppDataSource.getRepository(Movie);
-    
+
         const movie = await movieRepository.findOne({
-            where: {id},
+            where: { id },
+            relations: ["session"],
         });
 
-        if(!movie) {
-            throw new AppError("Movie not found.")
+        if (!movie) {
+            throw new AppError("Movie not found.");
         }
-    
-    
+
         return movie;
     }
 }
