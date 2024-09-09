@@ -663,6 +663,59 @@
               "description": "Unexpected error."
             }
           }
+        },
+        "delete": {
+          "tags": [
+            "tickets"
+          ],
+          "summary": "Deleta um ticket",
+          "description": "Deleta um ticket específico.",
+          "parameters": [
+            {
+              "name": "movie_id",
+              "in": "path",
+              "description": "O id do movie ao qual deseja criar a sessão",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "session_id",
+              "in": "path",
+              "description": "O id da sessão ao qual vai criar o filme",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "description": "O id do ticket que deseja deletar",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No content"
+            },
+            "400": {
+              "description": "Sould out | Occupied chair"
+            },
+            "404": {
+              "description": "Session not found."
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "default": {
+              "description": "Unexpected error."
+            }
+          }
         }
       }
     },
