@@ -24,11 +24,11 @@ export class SessionController {
 =======
 >>>>>>> 49be6567f712a184dde029a37ef1a7bcbc873ea6
 
-import CreateSessionService from "../../api/services/Session/CreateSessionService";
-import ShowSessionService from "../../api/services/Session/ShowSessionService";
-import UpdateSessionService from "../../api/services/Session/UpdateSessionService";
-import DeleteSessionService from "../../api/services/Session/DeleteSessionService";
-import ListSessionService from "../../api/services/Session/ListSessionsService";
+import CreateSessionService from "@api/services/Session/CreateSessionService";
+import ShowSessionService from "@api/services/Session/ShowSessionService";
+import UpdateSessionService from "@api/services/Session/UpdateSessionService";
+import DeleteSessionService from "@api/services/Session/DeleteSessionService";
+import ListSessionService from "@api/services/Session/ListSessionsService";
 
 export class SessionController {
     async post(req: Request, res: Response) {

@@ -1,6 +1,6 @@
-import Session from "../../../database/entities/Session";
-import { AppDataSource } from "../../../database/";
-import AppError from "../../middlewares/AppError";
+import Session from "@database/entities/Session";
+import { AppDataSource } from "@database/index";
+import AppError from "@api/middlewares/AppError";
 
 class ListSessionService {
     public async execute(movie_id: number): Promise<Session[]> {

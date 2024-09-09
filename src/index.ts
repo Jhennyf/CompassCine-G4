@@ -6,8 +6,8 @@ import { errors } from 'celebrate';
 import swaggerUI from "swagger-ui-express";
 import swaggerDocumentation from "../swagger.json"
 
-import "../src/database/index";
-import AppError from "./api/middlewares/AppError";
+import "@database/index";
+import AppError from "@api/middlewares/AppError";
 
 import movieRouter from "./routes/Movies.routes";
 <<<<<<< HEAD
@@ -40,14 +40,16 @@ app.use(
     (error: Error, request: Request, response: Response) => {
         if (error instanceof AppError) {
             return response.status(error.statusCode).json({
-                status: `Error: ${error.statusCode}`,
+                code: error.statusCode,
+                status: error.statusMessage,
                 message: error.message,
             });
         }
 
         return response.status(500).json({
-            status: 'error',
-            message: 'Internal server error',
+            code: 500,
+            status: 'Internal Server Error',
+            message: 'Ocorreu um erro inesperado',
         });
     },
 );

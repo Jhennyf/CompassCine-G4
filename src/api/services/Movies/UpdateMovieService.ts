@@ -1,8 +1,8 @@
 import moment from "moment";
 
-import Movie from "../../../database/entities/Movie";
-import { AppDataSource } from "../../../database/";
-import AppError from "../../middlewares/AppError";
+import Movie from "@database/entities/Movie";
+import { AppDataSource } from "@database/index";
+import AppError from "@api/middlewares/AppError";
 
 interface IRequest {
     id: number;

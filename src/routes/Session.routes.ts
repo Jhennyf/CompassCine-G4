@@ -4,7 +4,7 @@ import { celebrate, Joi, Segments } from "celebrate";
 import { SessionController } from "../api/controllers/SessionController";
 =======
 import { celebrate, Segments } from "celebrate";
-import { SessionController } from "../api/controllers/SessionController";
+import { SessionController } from "@api/controllers/SessionController";
 
 import BaseJoi, { Extension, Root } from 'joi';
 import joiDate from '@joi/date'
@@ -37,6 +37,9 @@ sessionRoutes.get(
 sessionRoutes.post(
   "/movies/:movie_id/sessions",
   celebrate({
+    [Segments.PARAMS]: {
+        movie_id: Joi.number().required()
+    },
     [Segments.BODY]: {
       room: Joi.string().required(),
       capacity: Joi.number().integer().required(),

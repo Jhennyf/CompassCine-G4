@@ -1,9 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 
-// Migrations
-
-// Entities
 import Movie from "./entities/Movie";
 import Session from "./entities/Session";
 import Ticket from "./entities/Ticket";

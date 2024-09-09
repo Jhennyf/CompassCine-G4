@@ -5,7 +5,7 @@ import BaseJoi, { Extension, Root } from 'joi';
 import joiDate from '@joi/date'
 const Joi = BaseJoi.extend(joiDate as unknown as Extension) as Root;
 
-import MovieController from './../api/controllers/MovieController';
+import MovieController from '@api/controllers/MovieController';
 
 const movieRoutes = express.Router();
 const movieController = new MovieController();

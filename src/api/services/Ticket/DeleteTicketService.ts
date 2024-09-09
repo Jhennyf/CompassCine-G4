@@ -1,5 +1,5 @@
-import Ticket from "../../../database/entities/Ticket";
-import { AppDataSource } from "../../../database/";
+import Ticket from "@database/entities/Ticket";
+import { AppDataSource } from "@database/index";
 
 interface IParams {
     id: number;
