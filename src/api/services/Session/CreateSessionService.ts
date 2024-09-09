@@ -6,7 +6,7 @@ import AppError from "../../middlewares/AppError";
 interface IRequest {
     room: string;
     capacity: number;
-    day: Date;
+    day: string;
     time: string;
     movie_id: number;
 }

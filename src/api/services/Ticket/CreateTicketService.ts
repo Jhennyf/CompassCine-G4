@@ -1,65 +1,60 @@
 import Ticket from "../../../database/entities/Ticket";
 import { AppDataSource } from "../../../database/";
-import Session from "@database/entities/Session";
+import Session from "../../../database/entities/Session";
+import AppError from "../../middlewares/AppError";
 
 interface IRequest {
     value: number;
     chair: string;
+    session_id: number;
 }
 
-interface IChairCount {
-    total: number;
-}
-
-interface ILimitSession {
-    capacity: number;
-}
-
-//conta o numero de cadeiras cadastradas
 class CreateTicketService {
-    async chairCount(): Promise<IChairCount[]> {
-        const ticketRepository = AppDataSource.getRepository(Ticket);
-        return ticketRepository
-            .createQueryBuilder("ticket")
-            .select("ticket.chair, COUNT(*) as total")
-            .groupBy("ticket.chair")
-            .getRawMany();
-    }
-
-    // async limitSession(): Promise<ILimitSession> {
-    //     const sessionRepository = AppDataSource.getRepository(Session);
-    //     return sessionRepository
-    //         .createQueryBuilder("session")
-    //         .select("session.sessionId, COUNT(*) as total")
-    //         .groupBy("ticket.chair")
-    //         .getRawMany();
-    // }
-
-    public async execute({ value, chair }: IRequest): Promise<Ticket> {
+    public async execute({
+        value,
+        chair,
+        session_id,
+    }: IRequest): Promise<Ticket> {
         const ticketRepository = AppDataSource.getRepository(Ticket);
         const sessionRepository = AppDataSource.getRepository(Session);
 
-        // //conta o numero de cadeiras cadastradas
-        // const chairCount = await ticketRepository.count({ chair });
+        //valida a sessão
+        const sessionMovie = await sessionRepository.findOne({
+            where: { id: session_id },
+        });
+        console.log("session_id:", session_id);
 
-        //confere o numero de cadeiras com a capacidade da sessão
-        if (this.chairCount > sessionRepository.capacity) {
-        const [chairCount] = await ticketRepository.findAndCount(chair)
+        if (!sessionMovie) {
+            throw new AppError("Sessão nao existe.");
+        }
 
-        if(chairCount > sessionRepository.capacity){
-            throw new Error("Sold out.");
+        //conta o numero de tickets na sessão
+        const [tickets, ticketCount] = await ticketRepository.findAndCount({
+            where: { session: { id: session_id } },
+        });
+        console.log("ticketCount:", ticketCount);
+
+        //valida se o número de vendas nao excedeu a capacidade
+        if (ticketCount > sessionMovie.capacity - 1) {
+            throw new AppError("Sold out.");
         }
 
         //valida as cadeiras
         const chairExists = await ticketRepository.findOne({
-            where: { chair },
+            where: { session: { id: session_id }, chair: chair },
         });
+        console.log("chair:", chair);
 
-        if (chairExists === true) {
-            throw new Error("Occupied chair.");
+        if (chairExists) {
+            throw new AppError("Occupied chair.");
         }
+        console.log(chairExists);
 
-        const ticket = ticketRepository.create({ value, chair });
+        const ticket = ticketRepository.create({
+            value,
+            chair,
+            session: sessionMovie,
+        });
         await ticketRepository.save(ticket);
 
         return ticket;

@@ -23,11 +23,20 @@ export class Session {
     @Column()
     capacity: number;
 
-    @Column()
-    day: Date;
+    @Column({
+        type: 'date',
+        transformer: {
+            from: (value: string) => new Date(value),
+            to: (value: Date) => value.toLocaleDateString('pt-BR', { timeZone: 'UTC' }), // format the Date to YYYY-MM-DD
+        },
+    })
+    day: string;
 
     @Column()
     time: string;
+
+    @Column({ name: "movie_id" })
+    movie_id: number;
 
     @CreateDateColumn()
     @Exclude()
@@ -41,11 +50,12 @@ export class Session {
     @ManyToOne(() => Movie, (movie) => movie.session, {
         onDelete: 'CASCADE'
     })
-    @JoinColumn({ name: 'movie_id' }) 
+    @JoinColumn({ name: 'movie_id' })
     movie: Movie;
 
     @OneToMany(() => Ticket, (ticket) => ticket.session, {
         cascade: true,
+        onDelete: 'CASCADE',
     })
     ticket: Ticket[];
 }

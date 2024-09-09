@@ -7,44 +7,48 @@ const ticketController = new TicketController();
 
 // creat ticket
 ticketRoutes.post(
-  "/movies/:movie_id/sessions/:session_id/tickets",
-  celebrate({
-    [Segments.PARAMS]: {
-        movie_id: Joi.number().integer().required(),
-        session_id: Joi.number().integer().required(),
-      },
-    [Segments.BODY]: {
-      chair: Joi.string().required(),
-      value: Joi.number().required(),
-    },
-  }),
-  ticketController.post
+    "/movies/:movie_id/sessions/:session_id/tickets",
+    celebrate({
+        [Segments.PARAMS]: {
+            movie_id: Joi.number().integer().required(),
+            session_id: Joi.number().integer().required(),
+        },
+        [Segments.BODY]: {
+            chair: Joi.string().required(),
+            value: Joi.number().required(),
+        },
+    }),
+    ticketController.post,
 );
 
 // update ticket
 ticketRoutes.put(
-  "/movies/:movie_id/sessions/:session_id/tickets/:id",
-  celebrate({
-    [Segments.BODY]: {
-      chair: Joi.string().required(),
-      value: Joi.number().required(),
-    },
-    [Segments.PARAMS]: {
-      id: Joi.number().integer().required(),
-    },
-  }),
-    ticketController.put
+    "/movies/:movie_id/sessions/:session_id/tickets/:id",
+    celebrate({
+        [Segments.PARAMS]: {
+            movie_id: Joi.number().integer().required(),
+            session_id: Joi.number().integer().required(),
+            id: Joi.number().integer().required(),
+        },
+        [Segments.BODY]: {
+            chair: Joi.string().required(),
+            value: Joi.number().required(),
+        },
+    }),
+    ticketController.put,
 );
 
 // Delete ticket
 ticketRoutes.delete(
-  "/movies/:movie_id/sessions/:session_id/tickets/:id",
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.number().integer().required(),
-    },
-  }),
-    ticketController.delete
+    "/movies/:movie_id/sessions/:session_id/tickets/:id",
+    celebrate({
+        [Segments.PARAMS]: {
+            movie_id: Joi.number().integer().required(),
+            session_id: Joi.number().integer().required(),
+            id: Joi.number().integer().required(),
+        },
+    }),
+    ticketController.delete,
 );
 
 export default ticketRoutes;

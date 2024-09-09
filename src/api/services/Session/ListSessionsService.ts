@@ -7,7 +7,7 @@ class ListSessionService {
         const sessionRepository = AppDataSource.getRepository(Session);
         const sessions = await sessionRepository.find({
             where: { movie: { id: movie_id } },
-            relations: ["movie"]
+            relations: ["movie", "ticket"]
         });
         
         if (sessions.length === 0) {

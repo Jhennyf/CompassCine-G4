@@ -14,7 +14,7 @@ class ShowMoviceService {
     
         const movie = await movieRepository.findOne({
             where: {id},
-            relations: ["session"]
+            relations: ["session", "session.ticket"]
         });
 
         if(!movie) {
@@ -22,6 +22,7 @@ class ShowMoviceService {
         }
     
         movie.release_date = moment(movie.release_date).format("DD/MM/YYYY HH:mm")
+        movie.session[0].day = moment(movie.session[0].day).format("DD/MM/YYYY")
         
         return movie;
     }
