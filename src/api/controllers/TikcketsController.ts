@@ -33,11 +33,12 @@ export class TicketController {
 
     async put(req: Request, res: Response) {
         try {
-            const { id, session_id } = req.params;
+            const { id, session_id, movie_id } = req.params;
             const update = new UpdateTicketService();
             const updatedTicket = await update.execute({
                 id: parseInt(id),
                 session_id: parseInt(session_id),
+                movie_id: parseInt(movie_id),
                 ...req.body,
             });
 

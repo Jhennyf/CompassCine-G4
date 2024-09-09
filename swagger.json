@@ -66,7 +66,7 @@
           "summary": "Criação de filmes",
           "description": "Este endpoint faz a criação de um filme.",
           "requestBody": {
-            "description": "Request body para criar um novo tutor.",
+            "description": "Request body para criar um novo movie",
             "content": {
               "application/json": {
                 "schema": {
@@ -299,8 +299,8 @@
           "tags": [
             "sessions"
           ],
-          "summary": "Cria um novo tutor",
-          "description": "Insere via metodo POST um novo tutor ao servidor.",
+          "summary": "cria uma nova session.",
+          "description": "Cria uma nova session atribuindo-a a um movie.",
           "parameters": [
             {
               "name": "movie_id",
@@ -313,7 +313,7 @@
             }
           ],
           "requestBody": {
-            "description": "Request body para criar um novo tutor.",
+            "description": "Request body para criar uma nova session.",
             "content": {
               "application/json": {
                 "schema": {
@@ -400,7 +400,7 @@
             }
           ],
           "requestBody": {
-            "description": "Request body para criar um novo tutor.",
+            "description": "Request body para atualizar uma session.",
             "content": {
               "application/json": {
                 "schema": {
@@ -499,6 +499,171 @@
             }
           }
         }
+      },
+      "/movies/{movie_id}/sessions/{session_id}/tickets": {
+        "post": {
+          "tags": [
+            "tickets"
+          ],
+          "summary": "Cria um novo ticket",
+          "description": "Cria um ticket (ingresso) de uma sessão que é relacionada a um filme.",
+          "parameters": [
+            {
+              "name": "movie_id",
+              "in": "path",
+              "description": "O id do movie ao qual deseja criar a sessão",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "session_id",
+              "in": "path",
+              "description": "O id da sessão ao qual vai criar o filme",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Request body para criar um novo ticket.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "chair": {
+                      "type": "string",
+                      "example": "C04"
+                    },
+                    "value": {
+                      "type": "number",
+                      "example": 100
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Ticket"
+                  }
+                },
+                "application/xml": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Ticket"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Sould out | Occupied chair"
+            },
+            "404": {
+              "description": "Movie not found | Session not found."
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "default": {
+              "description": "Unexpected error."
+            }
+          }
+        }
+      },
+      "/movies/{movie_id}/sessions/{session_id}/tickets/{id}": {
+        "put": {
+          "tags": [
+            "tickets"
+          ],
+          "summary": "Atualiza um ticket",
+          "description": "Cria um ticket (ingresso) de uma sessão que é relacionada a um filme.",
+          "parameters": [
+            {
+              "name": "movie_id",
+              "in": "path",
+              "description": "O id do movie ao qual deseja criar a sessão",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "session_id",
+              "in": "path",
+              "description": "O id da sessão ao qual vai criar o filme",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "description": "O id do ticket que deseja atualizar",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Request body para atualizar um ticket.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "chair": {
+                      "type": "string",
+                      "example": "C04"
+                    },
+                    "value": {
+                      "type": "number",
+                      "example": 100
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Ticket"
+                  }
+                },
+                "application/xml": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Ticket"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Sould out | Occupied chair"
+            },
+            "404": {
+              "description": "Session not found."
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "default": {
+              "description": "Unexpected error."
+            }
+          }
+        }
       }
     },
     "components": {
@@ -584,6 +749,30 @@
           },
           "xml": {
             "name": "session"
+          }
+        },
+        "Ticket": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "example": 1
+            },
+            "session_id": {
+              "type": "string",
+              "example": 1
+            },
+            "chair": {
+              "type": "string",
+              "example": "c04"
+            },
+            "value": {
+              "type": "number",
+              "example": 10
+            }
+          },
+          "xml": {
+            "name": "ticket"
           }
         }
       }

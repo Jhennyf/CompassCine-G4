@@ -1,3 +1,5 @@
+import moment from "moment";
+
 import Session from "../../../database/entities/Session";
 import { AppDataSource } from "../../../database/";
 import Movie from "../../../database/entities/Movie";
@@ -32,6 +34,8 @@ class CreateSessionService {
 
         const session = sessionRepository.create({ room, capacity, day, time, movie });
         await sessionRepository.save(session);
+
+        session.day = moment(session.day).format("DD/MM/YYYY")
 
         return session;
     }

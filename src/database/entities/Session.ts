@@ -51,6 +51,7 @@ export class Session {
         onDelete: 'CASCADE'
     })
     @JoinColumn({ name: 'movie_id' })
+    @Exclude()
     movie: Movie;
 
     @OneToMany(() => Ticket, (ticket) => ticket.session, {
