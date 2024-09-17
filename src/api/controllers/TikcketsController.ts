@@ -16,7 +16,7 @@ export class TicketController {
             });
             return res.status(201).json(instanceToInstance(newTicket));
         } catch (error) {
-            console.log(error)
+            console.log(error);
             return res.json(error);
         }
     }

@@ -34,7 +34,6 @@ class CreateTicketService {
         });
         console.log(tickets);
 
-
         //valida se o número de vendas nao excedeu a capacidade
         if (ticketCount > sessionMovie.capacity - 1) {
             throw new AppError("Sold out.", 400);
@@ -52,7 +51,7 @@ class CreateTicketService {
         const ticket = ticketRepository.create({
             value,
             chair,
-            session: sessionMovie,
+            session_id,
         });
         await ticketRepository.save(ticket);
 

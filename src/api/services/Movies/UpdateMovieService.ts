@@ -35,7 +35,10 @@ class UpdateMovieService {
         }
 
         if (description.length > 100) {
-            throw new AppError("The description cannot exceed 100 characters.", 400);
+            throw new AppError(
+                "The description cannot exceed 100 characters.",
+                400,
+            );
         }
 
         movie.name = name;
@@ -46,7 +49,7 @@ class UpdateMovieService {
 
         await movieRepository.save(movie);
 
-        movie.release_date = moment(movie.release_date).format("DD/MM/YYYY HH:mm")
+        movie.release_date = moment(movie.release_date).format("DD/MM/YYYY");
 
         return movie;
     }

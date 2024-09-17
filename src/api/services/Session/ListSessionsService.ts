@@ -7,11 +7,14 @@ class ListSessionService {
         const sessionRepository = AppDataSource.getRepository(Session);
         const sessions = await sessionRepository.find({
             where: { movie: { id: movie_id } },
-            relations: ["movie", "ticket"]
+            relations: ["movie", "ticket"],
         });
-        
+
         if (sessions.length === 0) {
-            throw new AppError("There are no sessions registered for this movie.", 400);
+            throw new AppError(
+                "There are no sessions registered for this movie.",
+                400,
+            );
         }
 
         return sessions;

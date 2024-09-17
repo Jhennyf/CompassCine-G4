@@ -13,25 +13,40 @@ interface IRequest {
 }
 
 class CreateMovieService {
-    public async execute({ name, description, actors, genre, release_date }: IRequest): Promise<Movie> {
+    public async execute({
+        name,
+        description,
+        actors,
+        genre,
+        release_date,
+    }: IRequest): Promise<Movie> {
         const movieRepository = AppDataSource.getRepository(Movie);
 
         const movieExists = await movieRepository.findOne({
-            where: { name }
+            where: { name },
         });
 
         if (movieExists) {
-            throw new AppError("Movie already registered.", 400)
+            throw new AppError("Movie already registered.", 400);
         }
 
         if (description.length > 100) {
-            throw new AppError("The description cannot exceed 100 characters.", 400)
+            throw new AppError(
+                "The description cannot exceed 100 characters.",
+                400,
+            );
         }
 
-        const movie = movieRepository.create({ name, description, actors, genre, release_date });
-        await movieRepository.save(movie)
+        const movie = movieRepository.create({
+            name,
+            description,
+            actors,
+            genre,
+            release_date,
+        });
+        await movieRepository.save(movie);
 
-        movie.release_date = moment(movie.release_date).format("DD/MM/YYYY HH:mm")
+        movie.release_date = moment(movie.release_date).format("DD/MM/YYYY");
 
         return movie;
     }
