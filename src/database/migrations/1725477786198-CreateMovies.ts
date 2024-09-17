@@ -24,7 +24,7 @@ export class CreateMovies1725477786198 implements MigrationInterface {
                         type: "int",
                     },
                     {
-                        name: "releade_date",
+                        name: "release_date",
                         type: "timestamp with time zone",
                         default: "now()",
                     },

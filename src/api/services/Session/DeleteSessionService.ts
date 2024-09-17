@@ -1,5 +1,6 @@
-import Session from "../../../database/entities/Session";
-import { AppDataSource } from "../../../database";
+import Session from "@database/entities/Session";
+import { AppDataSource } from "@database/index";
+import AppError from "@api/middlewares/AppError";
 
 interface IRequest {
     id: number;
@@ -12,11 +13,11 @@ class DeleteSessionService {
 
         const session = await sessionRepository.findOne({
             where: { id, movie: { id: movie_id } },
-            relations: ["movie"]
+            relations: ["movie"],
         });
 
         if (!session) {
-            throw new Error("Session not found.");
+            throw new AppError("Session or Movie not found.", 404);
         }
 
         await sessionRepository.remove(session);

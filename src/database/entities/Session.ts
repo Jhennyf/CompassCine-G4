@@ -8,7 +8,7 @@ import {
     OneToMany,
     JoinColumn,
 } from "typeorm";
-import { Exclude, Expose } from "class-transformer";
+import { Exclude } from "class-transformer";
 import { Movie } from "./Movie";
 import { Ticket } from "./Ticket";
 
@@ -25,7 +25,7 @@ export class Session {
     capacity: number;
 
     @Column()
-    day: Date;
+    day: string;
 
     @Column()
     time: string;
@@ -46,6 +46,7 @@ export class Session {
         onDelete: "CASCADE",
     })
     @JoinColumn({ name: "movie_id" })
+    @Exclude()
     movie: Movie;
 
     @OneToMany(() => Ticket, (ticket) => ticket.session, {

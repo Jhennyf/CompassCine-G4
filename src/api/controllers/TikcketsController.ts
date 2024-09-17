@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { instanceToInstance } from "class-transformer";
-import CreateTicketService from "../../api/services/Ticket/CreateTicketService";
-import ShowTicketService from "../../api/services/Ticket/ShowTicketService";
-import UpdateTicketService from "../../api/services/Ticket/UpdateTicketService";
-import DeleteTicketService from "../../api/services/Ticket/DeleteTicketService";
+
+import CreateTicketService from "@api/services/Ticket/CreateTicketService";
+import ShowTicketService from "@api/services/Ticket/ShowTicketService";
+import UpdateTicketService from "@api/services/Ticket/UpdateTicketService";
+import DeleteTicketService from "@api/services/Ticket/DeleteTicketService";
 
 export class TicketController {
     async post(req: Request, res: Response) {
@@ -15,6 +16,7 @@ export class TicketController {
             });
             return res.status(201).json(instanceToInstance(newTicket));
         } catch (error) {
+            console.log(error);
             return res.json(error);
         }
     }
@@ -32,11 +34,12 @@ export class TicketController {
 
     async put(req: Request, res: Response) {
         try {
-            const { id, session_id } = req.params;
+            const { id, session_id, movie_id } = req.params;
             const update = new UpdateTicketService();
             const updatedTicket = await update.execute({
                 id: parseInt(id),
                 session_id: parseInt(session_id),
+                movie_id: parseInt(movie_id),
                 ...req.body,
             });
 

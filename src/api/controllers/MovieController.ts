@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { instanceToInstance } from "class-transformer";
 
-import CreateMovieService from "../services/Movies/CreateMovieService";
-import ListMovieService from "../services/Movies/ListMovieService";
-import ShowMoviceService from "../services/Movies/ShowMovieService";
-import UpdateMovieService from "../services/Movies/UpdateMovieService";
-import DeleteMovieService from "../services/Movies/DeleteMovieService";
+import CreateMovieService from "@api/services/Movies/CreateMovieService";
+import ListMovieService from "@api/services/Movies/ListMovieService";
+import ShowMoviceService from "@api/services/Movies/ShowMovieService";
+import UpdateMovieService from "@api/services/Movies/UpdateMovieService";
+import DeleteMovieService from "@api/services/Movies/DeleteMovieService";
 
 export default class MovieController {
     // Creation Movie Controller
@@ -21,16 +21,16 @@ export default class MovieController {
             release_date,
         });
 
-        return res.json(instanceToInstance(movie));
+        return res.status(201).json(instanceToInstance(movie));
     }
 
-    // List All Movies Controller
-    public async list(req: Request, res: Response): Promise<Response> {
+     // List All Movies Controller
+     public async list(req: Request, res: Response): Promise<Response> {
         const listMovieService = new ListMovieService();
 
         const movie = await listMovieService.execute();
 
-        return res.json(movie);
+        return res.status(200).json(instanceToInstance(movie));
     }
 
     // Show Movie Controller
@@ -40,7 +40,7 @@ export default class MovieController {
         const showMovieService = new ShowMoviceService();
         const movie = await showMovieService.execute({ id });
 
-        return res.json(instanceToInstance(movie));
+        return res.status(200).json(instanceToInstance(movie));
     }
 
     // Update Movie Controller
@@ -58,7 +58,7 @@ export default class MovieController {
             release_date,
         });
 
-        return res.json(instanceToInstance(movie));
+        return res.status(201).json(instanceToInstance(movie));
     }
 
     // Delete Movie Controller

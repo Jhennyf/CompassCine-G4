@@ -1,5 +1,6 @@
-import Session from "../../../database/entities/Session";
-import { AppDataSource } from "../../../database/";
+import Session from "@database/entities/Session";
+import { AppDataSource } from "@database/index";
+import AppError from "@api/middlewares/AppError";
 
 class ShowSessionService {
     public async getSessionById(
@@ -15,7 +16,7 @@ class ShowSessionService {
         console.log(session);
 
         if (!session) {
-            throw new Error("Session not found.");
+            throw new AppError("Session not found.", 404);
         }
 
         return session;

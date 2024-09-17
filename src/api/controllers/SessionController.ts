@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import { instanceToInstance, instanceToPlain } from "class-transformer";
-import CreateSessionService from "../../api/services/Session/CreateSessionService";
-import ShowSessionService from "../../api/services/Session/ShowSessionService";
-import UpdateSessionService from "../../api/services/Session/UpdateSessionService";
-import DeleteSessionService from "../../api/services/Session/DeleteSessionService";
-import ListSessionService from "../../api/services/Session/ListSessionsService";
+
+import CreateSessionService from "@api/services/Session/CreateSessionService";
+import ShowSessionService from "@api/services/Session/ShowSessionService";
+import UpdateSessionService from "@api/services/Session/UpdateSessionService";
+import DeleteSessionService from "@api/services/Session/DeleteSessionService";
+import ListSessionService from "@api/services/Session/ListSessionsService";
 
 export class SessionController {
     async post(req: Request, res: Response) {
@@ -40,6 +41,7 @@ export class SessionController {
                 parseInt(movie_id),
             );
             return res.json(instanceToPlain(session));
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             return res.status(404).json({ message: "Session not found." });
         }

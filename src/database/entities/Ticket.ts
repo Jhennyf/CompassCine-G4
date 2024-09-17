@@ -7,6 +7,7 @@ import {
     UpdateDateColumn,
     JoinColumn,
 } from "typeorm";
+import { Exclude } from "class-transformer";
 import { Session } from "./Session";
 import { Exclude } from "class-transformer";
 
@@ -21,7 +22,7 @@ export class Ticket {
     @Column()
     chair: string;
 
-    @Column({ name: "session_id" })
+    @Column({ name: "sessionId" })
     session_id: number;
 
     @CreateDateColumn()
@@ -35,7 +36,7 @@ export class Ticket {
     @ManyToOne(() => Session, (session) => session.ticket, {
         onDelete: "CASCADE",
     })
-    @JoinColumn({ name: "session_id" })
+    @JoinColumn({ name: "sessionId" })
     session: Session;
 }
 
